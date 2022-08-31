@@ -10,6 +10,13 @@
 </div>
 <div id="canvas-holder">
     <svg id="canvas" viewBox="0 0 150 150">
+        <!-- area -->
+        <path
+                d="M 25 75 V 25 H 75 V 50 A 25 25 0 0 1 100 75 H 75 V 100 L 25 75 Z"
+                fill="#0ff"
+        ></path>
+        <!-- selected points -->
+        <g id="points"></g>
         <!-- vertical axis -->
         <line x1="75" x2="75" y1="150" y2="4" class="axis"></line>
         <polygon points="75,0 72,5 78,5" class="axis"></polygon>
