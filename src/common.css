@@ -34,17 +34,17 @@ svg#canvas {
 }
 
 svg#canvas line.axis {
-    stroke: black;
+    stroke: #09f;
     stroke-width: 1;
 }
 
 svg#canvas polygon.axis {
-    fill: black;
+    fill: #09f;
 }
 
 svg#canvas text.axis {
     font-family: monospace;
-    fill: black;
+    fill: #09f;
     font-size: 6px;
 }
 
@@ -56,6 +56,25 @@ svg#canvas text.axis.x {
 svg#canvas text.axis.y {
     alignment-baseline: middle;
     text-anchor: end;
+}
+
+svg#canvas circle.point {
+    stroke: red;
+    stroke-width: 1;
+    fill: yellow;
+}
+
+svg#canvas circle.point:target {
+    fill: orange;
+}
+
+svg#canvas text.point {
+    alignment-baseline: text-after-edge;
+    text-anchor: start;
+    font-size: 6px;
+    fill: black;
+    font-weight: bold;
+    font-family: monospace;
 }
 
 table#form {
@@ -74,10 +93,8 @@ table#form td {
 table#form input[type="text"] {
     width: 100%;
     background-color: white;
-}
-
-table#form input[type="text"].error {
-    background-color: coral;
+    border: 1px solid black;
+    padding: 3px;
 }
 
 table#form svg.pointer-triangle {
@@ -101,4 +118,28 @@ table#form span.message-box {
     padding: 5px;
     border: 1px solid black;
     font-size: smaller;
+}
+
+table#request-history {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+table#request-history tr.splitter {
+    height: 10px;
+}
+
+table#request-history td {
+    border: 1px solid black;
+    background-color: #f3f3f3;
+    padding: 5px;
+}
+
+table#request-history tr:target td {
+    background-color: #ddd;
+}
+
+table#request-history td.invalid-input {
+    background-color: coral;
 }
