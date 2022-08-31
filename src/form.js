@@ -12,8 +12,20 @@ function setMessage(elementId, message) {
     }
 }
 
-function checkY(input) {
-    let raw = input.value
+const xButtons = []
+const rButtons = []
+let xAccessed = false
+let yAccessed = false
+let rAccessed = false
+
+function checkY() {
+    if (!yAccessed) {
+        setMessage("form-y-error", null)
+        return false
+    }
+    let raw = document.getElementById("form-y").value
+    if (raw === "")
+        return setMessage("form-y-error", "Введите число")
     let minusCount = 0
     let dotsCount = 0
     for (let c of raw) {
@@ -59,7 +71,50 @@ function checkY(input) {
         return setMessage("form-y-error", "Просто минус - это не число")
     if (raw === "-0")
         return setMessage("form-y-error", "Нулю минус не нужен")
+    if (raw.length > 1 && raw[0] === '0' || raw.length > 2 && raw[0] === '-' && raw[1] === '0')
+        return setMessage("form-y-error", "Лидирующие нули - это плохо")
     if (+raw <= -5 || 3 <= +raw)
         return setMessage("form-y-error", "Y должен быть в диапазоне (-3; 5)")
+
     return setMessage("form-y-error", null)
+}
+
+function checkX() {
+    if (!xAccessed) {
+        setMessage("form-x-error", null)
+        return false
+    }
+    for (let btn of xButtons) {
+        if (btn.checked) {
+            return setMessage("form-x-error", null)
+        }
+    }
+    return setMessage("form-x-error", "Выберите координату")
+}
+
+function checkR() {
+    if (!rAccessed) {
+        setMessage("form-r-error", null)
+        return false
+    }
+    let selectedCount = 0
+    for (let btn of rButtons) {
+        if (btn.checked) {
+            selectedCount++
+        }
+    }
+    if (selectedCount === 0) {
+        return setMessage("form-r-error", "Выберите размер")
+    }
+    if (selectedCount > 1) {
+        return setMessage("form-r-error", "Слишком много размеров выбрано")
+    }
+    return setMessage("form-r-error", null)
+}
+
+function checkAll() {
+    let x = checkX()
+    let y = checkY()
+    let r = checkR()
+    document.getElementById("form-submit").disabled = !(x && y && r)
 }

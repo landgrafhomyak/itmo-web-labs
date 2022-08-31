@@ -17,6 +17,12 @@ h1#title {
     font-family: fantasy;
 }
 
+h1#title:hover {
+    background-image: linear-gradient(to bottom, red, orange, yellow, lawngreen, cyan, blue, blueviolet);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 div#canvas-holder {
     padding: 10px 10%;
 }
