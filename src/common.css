@@ -59,13 +59,13 @@ svg#canvas text.axis.y {
 }
 
 svg#canvas circle.point {
-    stroke: red;
-    stroke-width: 1;
+    stroke: none;
     fill: yellow;
 }
 
 svg#canvas circle.point:target {
-    fill: orange;
+    stroke: red;
+    stroke-width: 1;
 }
 
 svg#canvas text.point {

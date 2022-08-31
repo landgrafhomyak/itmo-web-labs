@@ -74,8 +74,7 @@ class Database extends SQLite3
 {
     function __construct()
     {
-        //todo argv
-        $this->open("history.sqlite");
+        parent::__construct("history.sqlite");
     }
 
     public function createTable()
@@ -139,7 +138,7 @@ $history = $db->getLastRequests($requestHistorySize);
 </head>
 <body>
 <div>
-    <h1 id="title">Выбери и точка</h1>
+    <h1 id="title">ВЫБЕРИ И ТОЧКА</h1>
 </div>
 <div id="canvas-holder">
     <svg id="canvas" viewBox="0 0 150 150">
@@ -193,7 +192,7 @@ $history = $db->getLastRequests($requestHistorySize);
             echo "' y='";
             echo htmlspecialchars(75 - $history[$i]->parsedY() * 50 / $history[$i]->parsedR() - 3);
             echo "'>";
-            echo htmlspecialchars("(x=" . $history[$i]->x . "; y=" . $history[$i]->y . "; r=" . $history[$i]->r . ")");
+            echo htmlspecialchars("(x=" . substr($history[$i]->x, 0, 6) . "; y=" . substr($history[$i]->y, 0, 6) . "; r=" . substr($history[$i]->r, 0, 6) . ")");
             echo "</text>";
             echo "</a>";
         }
@@ -202,7 +201,7 @@ $history = $db->getLastRequests($requestHistorySize);
 </div>
 <script src="form.js"></script>
 <div>
-    <form action="" method="post" autocomplete="off">
+    <form action="#" method="post" autocomplete="off">
         <h3 style="text-align: center; margin: 0">Выберите координаты и размер</h3>
         <table id="form">
             <tr>
@@ -308,17 +307,17 @@ $history = $db->getLastRequests($requestHistorySize);
             echo "<tr  id='request-" . $i . "'>";
             echo "<td>" . htmlspecialchars($history[$i]->date) . " UTC+0</td>";
             if (Request::checkX($history[$i]->x)) {
-                echo "<td>" . htmlspecialchars($history[$i]->x) . "</td>";
+                echo "<td>" . htmlspecialchars(substr($history[$i]->x, 0, 6)) . "</td>";
             } else {
                 echo "<td class='invalid-input'>" . htmlspecialchars($history[$i]->x) . "</td>";
             }
             if (Request::checkY($history[$i]->y)) {
-                echo "<td>" . htmlspecialchars($history[$i]->y) . "</td>";
+                echo "<td>" . htmlspecialchars(substr($history[$i]->y, 0, 6)) . "</td>";
             } else {
                 echo "<td class='invalid-input'>" . htmlspecialchars($history[$i]->y) . "</td>";
             }
             if (Request::checkR($history[$i]->r)) {
-                echo "<td>" . htmlspecialchars($history[$i]->r) . "</td>";
+                echo "<td>" . htmlspecialchars(substr($history[$i]->r, 0, 6)) . "</td>";
             } else {
                 echo "<td class='invalid-input'>" . htmlspecialchars($history[$i]->r) . "</td>";
             }

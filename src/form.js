@@ -49,7 +49,7 @@ function checkY() {
             case '9':
                 break;
             default:
-                return setMessage("form-y-error", "Unexpected char '" + c + "'")
+                return setMessage("form-y-error", "Невалидный символ '" + c + "'")
         }
     }
     if (minusCount > 1)
