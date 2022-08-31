@@ -2,6 +2,7 @@ body {
     width: 100%;
     margin: 0;
     padding: 0;
+    font-family: "Comic Sans MS", monospace;
 }
 
 body > div {
@@ -23,7 +24,7 @@ div#canvas-holder {
 svg#canvas {
     width: 100%;
     aspect-ratio: 1 / 1;
-    max-height: 60vh;
+    max-height: 50vh;
 }
 
 svg#canvas line.axis {
@@ -51,6 +52,19 @@ svg#canvas text.axis.y {
     text-anchor: end;
 }
 
-div#canvas-holder {
+table#form {
+    margin: auto;
+}
 
+table#form th {
+    text-align: right;
+    padding-right: 10px;
+}
+
+table#form td {
+    text-align: center;
+}
+
+table#form input[type="text"] {
+    width: 100%;
 }

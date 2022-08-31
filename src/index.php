@@ -44,6 +44,41 @@
 <script src="canvas.js"></script>
 <div>
     <form action="" method="post">
+        <table id="form">
+            <tr>
+                <th>X</th>
+                <td>
+                    <script>
+                        for (let e of [-4, -3, -2, -1, 0, 1, 2, 3, 4]) {
+                            document.write(
+                                "<label><input type='radio' name='x' value='" + e + "'>" + e + "</label>"
+                            )
+                        }
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <th>Y</th>
+                <td><input type="text" name="y" placeholder="-5 &lt; y &lt; 3"></td>
+            </tr>
+            <tr>
+                <th>R</th>
+                <td>
+                    <script>
+                        for (let e of [1, 2, 3, 4, 5]) {
+                            document.write(
+                                "<label><input type='checkbox' name='r' value='" + e + "'>" + e + "</label>"
+                            )
+                        }
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit">
+                </td>
+            </tr>
+        </table>
     </form>
 </div>
 <div>
