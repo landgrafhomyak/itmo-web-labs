@@ -42,8 +42,9 @@
     </svg>
 </div>
 <script src="canvas.js"></script>
+<script src="form.js"></script>
 <div>
-    <form action="" method="post">
+    <form action="" method="post" autocomplete="off">
         <table id="form">
             <tr>
                 <th>X</th>
@@ -59,7 +60,22 @@
             </tr>
             <tr>
                 <th>Y</th>
-                <td><input type="text" name="y" placeholder="-5 &lt; y &lt; 3"></td>
+                <td>
+                    <input
+                            id='form-y'
+                            type="text"
+                            name="y"
+                            placeholder="-5 &lt; y &lt; 3"
+                            oninput="checkY(this)"
+                            autocomplete="false"
+                    ><br>
+                    <div style="position:relative; display: none">
+                        <span class="message-box" id="form-y-error" style="left: 10px"></span>
+                        <svg class="pointer-triangle" viewBox="0 0 6 6" style="left: 15px;">
+                            <path d="M 0 6 L 3 0 L 6 6"></path>
+                        </svg>
+                    </div>
+                </td>
             </tr>
             <tr>
                 <th>R</th>
@@ -71,6 +87,12 @@
                             )
                         }
                     </script>
+                    <div style="position:relative; display: none">
+                        <span class="message-box" id="form-r-error" style="margin: auto;left: 0; right: 0"></span>
+                        <svg class="pointer-triangle" viewBox="0 0 6 6" style="margin: auto">
+                            <path d="M 0 6 L 3 0 L 6 6"></path>
+                        </svg>
+                    </div>
                 </td>
             </tr>
             <tr>

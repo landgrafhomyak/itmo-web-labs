@@ -67,4 +67,32 @@ table#form td {
 
 table#form input[type="text"] {
     width: 100%;
+    background-color: white;
+}
+
+table#form input[type="text"].error {
+    background-color: coral;
+}
+
+table#form svg.pointer-triangle {
+    width: 6px;
+    height: 6px;
+    position: absolute;
+    top: 0;
+}
+
+table#form svg.pointer-triangle > path {
+    fill: cornsilk;
+    stroke: black;
+    stroke-width: 1px;
+}
+
+table#form span.message-box {
+    background-color: cornsilk;
+    position: absolute;
+    width: 60%;
+    top: 5px;
+    padding: 5px;
+    border: 1px solid black;
+    font-size: smaller;
 }
