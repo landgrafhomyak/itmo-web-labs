@@ -1,0 +1,56 @@
+body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body > div {
+    padding: 10px;
+    margin: 10px 20%;
+    border: 1px solid black;
+}
+
+h1#title {
+    text-align: center;
+    margin: 0;
+    font-family: fantasy;
+}
+
+div#canvas-holder {
+    padding: 10px 10%;
+}
+
+svg#canvas {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    max-height: 60vh;
+}
+
+svg#canvas line.axis {
+    stroke: black;
+    stroke-width: 1;
+}
+
+svg#canvas polygon.axis {
+    fill: black;
+}
+
+svg#canvas text.axis {
+    font-family: monospace;
+    fill: black;
+    font-size: 6px;
+}
+
+svg#canvas text.axis.x {
+    alignment-baseline: text-before-edge;
+    text-anchor: middle;
+}
+
+svg#canvas text.axis.y {
+    alignment-baseline: middle;
+    text-anchor: end;
+}
+
+div#canvas-holder {
+
+}
