@@ -71,7 +71,7 @@ function checkY() {
         return setMessage("form-y-error", "Просто минус - это не число")
     if (raw === "-0")
         return setMessage("form-y-error", "Нулю минус не нужен")
-    if (raw.length > 1 && raw[0] === '0' || raw.length > 2 && raw[0] === '-' && raw[1] === '0')
+    if (raw.length >= 2 && raw[0] === '0' && raw[1] !== '.' || raw.length >= 3 && raw[0] === '-' && raw[1] === '0' && raw[2] !== '.')
         return setMessage("form-y-error", "Лидирующие нули - это плохо")
     if (+raw <= -5 || 3 <= +raw)
         return setMessage("form-y-error", "Y должен быть в диапазоне (-3; 5)")
