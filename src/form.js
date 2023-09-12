@@ -74,7 +74,7 @@ function checkY() {
     if (raw.length >= 2 && raw[0] === '0' && raw[1] !== '.' || raw.length >= 3 && raw[0] === '-' && raw[1] === '0' && raw[2] !== '.')
         return setMessage("form-y-error", "Лидирующие нули - это плохо")
     if (+raw <= -5 || 3 <= +raw)
-        return setMessage("form-y-error", "Y должен быть в диапазоне (-3; 5)")
+        return setMessage("form-y-error", "Y должен быть в диапазоне (-5; 3)")
 
     return setMessage("form-y-error", null)
 }
