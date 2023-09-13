@@ -89,6 +89,13 @@ class Database extends SQLite3
         )->execute();
     }
 
+    public function clearHistory()
+    {
+        $this->prepare(
+            "DELETE FROM requests_history;"
+        )->execute();
+    }
+
     public function addRecord(string $time, string $x, string $y, string $r, bool $result)
     {
         $statement = $this->prepare(

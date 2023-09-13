@@ -179,7 +179,10 @@ $history = $db->getLastRequests($requestHistorySize);
     </script>
 </div>
 <div>
-    <h3 style="text-align: center; margin: 0">Последние <?= $requestHistorySize ?> запросов</h3>
+    <h3 style="text-align: center; margin: 0">
+        Последние <?= $requestHistorySize ?> запросов
+        (<a href="#" onclick="clearHistory()">Очистить</a>)
+    </h3>
     <table id="request-history">
         <tr>
             <th>Время запроса</th>

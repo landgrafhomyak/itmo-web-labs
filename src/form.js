@@ -266,6 +266,23 @@ function submit() {
     shift()
 
     generateResponseUI(resp["time"], resp["x"], resp["y"], resp["r"], resp["state"])
+}
 
 
+function clearHistory() {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", "./clear.php", false)
+    xhr.send()
+
+    for (const elem of document.getElementById("dot-points").children)
+        elem.remove()
+
+    for (const elem of document.getElementById("dot-links").children)
+        elem.remove()
+
+    const historyRoot = document.getElementById("request-history").children[0]
+    const historyHeader = historyRoot.firstChild
+    for (const elem of Array.from(historyRoot.children))
+        if (!elem.isSameNode(historyHeader))
+            elem.remove()
 }
