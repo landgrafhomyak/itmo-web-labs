@@ -1,131 +1,9 @@
 <?php
 
-function checkPoint(int $x, float $y, int $r): bool
-{
-    if ($x <= 0 && $y >= 0) {
-        return -$x <= $r && $y <= $r;
-    } elseif ($x > 0 && $y >= 0) {
-        return hypot($x, $y) < 0.5 * $r;
-    } elseif ($x < 0 && $y < 0) {
-        return $y >= -0.5 * $r * $x - $r;
-    } else {
-        return false;
-    }
-}
-
-class Request
-{
-    public string $x;
-    public string $y;
-    public string $r;
-    public bool $result;
-    public string $date;
-
-    function __construct(string $x, string $y, string $r, bool $result, string $date)
-    {
-        $this->x = $x;
-        $this->y = $y;
-        $this->r = $r;
-        $this->result = $result;
-        $this->date = $date;
-    }
-
-    static public function checkX(string $input): bool
-    {
-        if (!is_numeric($input)) return false;
-        return in_array(intval($input), [-4, -3, -2, -1, 0, 1, 2, 3, 4]);
-    }
-
-    static public function checkY(string $input): bool
-    {
-        if (!is_numeric($input)) return false;
-        $y = floatval($input);
-        return -5 < $y && $y < 3;
-    }
-
-    static public function checkR(string $input): bool
-    {
-        if (!is_numeric($input)) return false;
-        return in_array(intval($input), [1, 2, 3, 4, 5]);
-    }
-
-    public function isDataValid(): bool
-    {
-        return self::checkX($this->x) && self::checkY($this->y) && self::checkR($this->r);
-    }
-
-    public function parsedX(): int
-    {
-        return intval($this->x);
-    }
-
-    public function parsedY(): float
-    {
-        return floatval($this->y);
-    }
-
-    public function parsedR(): int
-    {
-        return intval($this->r);
-    }
-}
-
-class Database extends SQLite3
-{
-    function __construct()
-    {
-        parent::__construct("history.sqlite");
-    }
-
-    public function createTable()
-    {
-        $this->prepare(
-            "CREATE TABLE IF NOT EXISTS requests_history(date TEXT, x TEXT, y TEXT, r TEXT, result BOOLEAN);"
-        )->execute();
-    }
-
-    public function addRecord(string $x, string $y, string $r, bool $result)
-    {
-        $statement = $this->prepare(
-            "INSERT INTO requests_history VALUES (datetime('now'), :x, :y, :r, :result);"
-        );
-        $statement->bindValue(":x", $x);
-        $statement->bindValue(":y", $y);
-        $statement->bindValue(":r", $r);
-        $statement->bindValue(":result", $result);
-        $statement->execute();
-    }
-
-    public function getLastRequests($howMany): array
-    {
-        $statement = $this->prepare(
-            "SELECT * FROM requests_history ORDER BY date DESC LIMIT :L"
-        );
-        $statement->bindValue(":L", $howMany);
-        $result = $statement->execute();
-        $out = array();
-        while ($row = $result->fetchArray()) {
-            $out[] = new Request($row["x"], $row["y"], $row["r"], boolval($row["result"]), $row["date"]);
-        }
-        return $out;
-    }
-}
+include "./.utils.php";
 
 $db = new Database();
 $db->createTable();
-
-$x = @$_POST['x'];
-$y = @$_POST['y'];
-$r = @$_POST['r'];
-if ($x != null && $y != null && $r != null) {
-    $currentRequest = new Request($x, $y, $r, false, "");
-    if ($currentRequest->isDataValid()) {
-        $currentRequest->result = checkPoint($currentRequest->parsedX(), $currentRequest->parsedY(), $currentRequest->parsedR());
-        $db->addRecord($currentRequest->x, $currentRequest->y, $currentRequest->r, $currentRequest->result);
-    } else {
-        $db->addRecord($currentRequest->x, $currentRequest->y, $currentRequest->r, false);
-    }
-}
 
 $requestHistorySize = 50;
 $history = $db->getLastRequests($requestHistorySize);
@@ -162,18 +40,20 @@ $history = $db->getLastRequests($requestHistorySize);
         <line x1="125" x2="125" y1="72" y2="78" class="axis"></line>
         <polygon points="150,75 145,72 145,78" class="axis"></polygon>
         <!-- выбранные точки -->
-        <?php
-        for ($i = count($history) - 1; $i > -1; $i--) {
-            if (!$history[$i]->isDataValid()) continue;
-            echo "<a href='#request-" . $i . "'>";
-            echo "<circle class='point' id='point-" . $i . "' cx='";
-            echo htmlspecialchars(75 + $history[$i]->parsedX() * 50 / $history[$i]->parsedR());
-            echo "' cy='";
-            echo htmlspecialchars(75 - $history[$i]->parsedY() * 50 / $history[$i]->parsedR());
-            echo "' r='2'/>";
-            echo "</a>";
-        }
-        ?>
+        <g id="dot-points">
+            <?php
+            for ($i = count($history) - 1; $i > -1; $i--) {
+                if (!$history[$i]->isDataValid()) continue;
+                echo "<a id='dot-point-" . $i . "href='#request-" . $i . "'>";
+                echo "<circle class='point' id='point-" . $i . "' cx='";
+                echo htmlspecialchars(75 + $history[$i]->parsedX() * 50 / $history[$i]->parsedR());
+                echo "' cy='";
+                echo htmlspecialchars(75 - $history[$i]->parsedY() * 50 / $history[$i]->parsedR());
+                echo "' r='2'/>";
+                echo "</a>";
+            }
+            ?>
+        </g>
         <text x="25" y="80" class="axis x">-R</text>
         <text x="50" y="80" class="axis x">-0.5R</text>
         <text x="100" y="80" class="axis x">0.5R</text>
@@ -183,113 +63,120 @@ $history = $db->getLastRequests($requestHistorySize);
         <text y="50" x="70" class="axis y">0.5R</text>
         <text y="25" x="70" class="axis y">R</text>
         <!-- надписи к выбранным точкам -->
-        <?php
-        for ($i = count($history) - 1; $i > -1; $i--) {
-            if (!$history[$i]->isDataValid()) continue;
-            echo "<a href='#request-" . $i . "'>";
-            echo "<text class='point' x='";
-            echo htmlspecialchars(75 + $history[$i]->parsedX() * 50 / $history[$i]->parsedR() + 3);
-            echo "' y='";
-            echo htmlspecialchars(75 - $history[$i]->parsedY() * 50 / $history[$i]->parsedR() - 3);
-            echo "'>";
-            echo htmlspecialchars("(x=" . substr($history[$i]->x, 0, 6) . "; y=" . substr($history[$i]->y, 0, 6) . "; r=" . substr($history[$i]->r, 0, 6) . ")");
-            echo "</text>";
-            echo "</a>";
-        }
-        ?>
+        <g id="dot-links">
+            <?php
+            for ($i = count($history) - 1; $i > -1; $i--) {
+                if (!$history[$i]->isDataValid()) continue;
+                echo "<a id='dot-title-" . $i . "' href='#request-" . $i . "'>";
+                echo "<text class='point' x='";
+                echo htmlspecialchars(75 + $history[$i]->parsedX() * 50 / $history[$i]->parsedR() + 3);
+                echo "' y='";
+                echo htmlspecialchars(75 - $history[$i]->parsedY() * 50 / $history[$i]->parsedR() - 3);
+                echo "'>";
+                echo htmlspecialchars("(x=" . substr($history[$i]->x, 0, 6) . "; y=" . substr($history[$i]->y, 0, 6) . "; r=" . substr($history[$i]->r, 0, 6) . ")");
+                echo "</text>";
+                echo "</a>";
+            }
+            ?>
+        </g>
     </svg>
 </div>
 <script src="form.js"></script>
+<script>
+    const historySize = <?= $requestHistorySize ?>
+</script>
 <div>
-    <form action="#" method="post" autocomplete="off">
-        <h3 style="text-align: center; margin: 0">Выберите координаты и размер</h3>
-        <table id="form">
-            <tr>
-                <th>X</th>
-                <td id="form-x">
-                    <script>
-                        for (let e of [-4, -3, -2, -1, 0, 1, 2, 3, 4]) {
-                            let lbl = document.createElement("label")
-                            let btn = document.createElement("input")
-                            lbl.appendChild(btn)
-                            xButtons.push(btn)
-                            btn.type = "radio"
-                            btn.name = "x"
-                            btn.value = e.toString()
-                            btn.oninput = function () {
-                                xAccessed = true;
-                                checkAll()
-                            }
-                            lbl.append(e.toString())
-                            document.getElementById("form-x").appendChild(lbl)
+    <h3 style="text-align: center; margin: 0">Выберите координаты и размер</h3>
+    <table id="form">
+        <tr>
+            <th>X</th>
+            <td id="form-x">
+                <script>
+                    for (let e of [-4, -3, -2, -1, 0, 1, 2, 3, 4]) {
+                        let lbl = document.createElement("label")
+                        let btn = document.createElement("input")
+                        lbl.appendChild(btn)
+                        xButtons.push(btn)
+                        btn.type = "radio"
+                        btn.name = "x"
+                        btn.value = e.toString()
+                        btn.oninput = function () {
+                            xAccessed = true;
+                            checkAll()
                         }
-                    </script>
-                    <div style="position:relative; display: none; z-index: 3;">
-                        <span class="message-box" id="form-x-error" style="margin: auto;left: 0; right: 0"></span>
-                        <svg class="pointer-triangle" viewBox="0 0 6 6" style="margin: auto">
-                            <path d="M 0 6 L 3 0 L 6 6"></path>
-                        </svg>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <th>Y</th>
-                <td>
-                    <input
-                            id='form-y'
-                            type="text"
-                            name="y"
-                            placeholder="-5 &lt; y &lt; 3"
-                            oninput="yAccessed = true; checkAll()"
-                            autocomplete="false"
-                    ><br>
-                    <div style="position:relative; display: none;  z-index: 2;">
-                        <span class="message-box" id="form-y-error" style="left: 10px"></span>
-                        <svg class="pointer-triangle" viewBox="0 0 6 6" style="left: 15px;">
-                            <path d="M 0 6 L 3 0 L 6 6"></path>
-                        </svg>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <th>R</th>
-                <td id="form-r">
-                    <script>
-                        for (let e of [1, 2, 3, 4, 5]) {
-                            let lbl = document.createElement("label")
-                            let btn = document.createElement("input")
-                            lbl.appendChild(btn)
-                            rButtons.push(btn)
-                            btn.type = "checkbox"
-                            btn.name = "r"
-                            btn.value = e.toString()
-                            btn.oninput = function () {
-                                rAccessed = true;
-                                checkAll()
-                            }
-                            lbl.append(e.toString())
-                            document.getElementById("form-r").appendChild(lbl)
+                        lbl.append(e.toString())
+                        document.getElementById("form-x").appendChild(lbl)
+                    }
+                </script>
+                <div style="position:relative; display: none; z-index: 3;">
+                    <span class="message-box" id="form-x-error" style="margin: auto;left: 0; right: 0"></span>
+                    <svg class="pointer-triangle" viewBox="0 0 6 6" style="margin: auto">
+                        <path d="M 0 6 L 3 0 L 6 6"></path>
+                    </svg>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th>Y</th>
+            <td>
+                <input
+                        id='form-y'
+                        type="text"
+                        name="y"
+                        placeholder="-5 &lt; y &lt; 3"
+                        oninput="yAccessed = true; checkAll()"
+                        autocomplete="false"
+                >
+                <script>
+                    yInput = document.getElementById("form-y")
+                </script>
+                <br>
+                <div style="position:relative; display: none;  z-index: 2;">
+                    <span class="message-box" id="form-y-error" style="left: 10px"></span>
+                    <svg class="pointer-triangle" viewBox="0 0 6 6" style="left: 15px;">
+                        <path d="M 0 6 L 3 0 L 6 6"></path>
+                    </svg>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th>R</th>
+            <td id="form-r">
+                <script>
+                    for (let e of [1, 2, 3, 4, 5]) {
+                        let lbl = document.createElement("label")
+                        let btn = document.createElement("input")
+                        lbl.appendChild(btn)
+                        rButtons.push(btn)
+                        btn.type = "checkbox"
+                        btn.name = "r"
+                        btn.value = e.toString()
+                        btn.oninput = function () {
+                            rAccessed = true;
+                            checkAll()
                         }
-                    </script>
-                    <div style="position:relative; display: none;  z-index: 1;">
-                        <span class="message-box" id="form-r-error" style="margin: auto;left: 0; right: 0"></span>
-                        <svg class="pointer-triangle" viewBox="0 0 6 6" style="margin: auto">
-                            <path d="M 0 6 L 3 0 L 6 6"></path>
-                        </svg>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <!-- отключено, потому что координаты не выбраны при загрузке -->
-                    <input type="submit" id="form-submit" disabled value="Проверить">
-                </td>
-            </tr>
-        </table>
-        <script>
-            checkAll()
-        </script>
-    </form>
+                        lbl.append(e.toString())
+                        document.getElementById("form-r").appendChild(lbl)
+                    }
+                </script>
+                <div style="position:relative; display: none;  z-index: 1;">
+                    <span class="message-box" id="form-r-error" style="margin: auto;left: 0; right: 0"></span>
+                    <svg class="pointer-triangle" viewBox="0 0 6 6" style="margin: auto">
+                        <path d="M 0 6 L 3 0 L 6 6"></path>
+                    </svg>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <!-- отключено, потому что координаты не выбраны при загрузке -->
+                <input type="submit" id="form-submit" disabled value="Проверить" onclick="submit()">
+            </td>
+        </tr>
+    </table>
+    <script>
+        checkAll()
+    </script>
 </div>
 <div>
     <h3 style="text-align: center; margin: 0">Последние <?= $requestHistorySize ?> запросов</h3>
