@@ -22,7 +22,7 @@ let rAccessed = false
 function getY(clear) {
     if (!yAccessed) {
         setMessage("form-y-error", null)
-        return false
+        return null
     }
     let raw = document.getElementById("form-y").value
     if (clear)
@@ -105,7 +105,7 @@ function getX(clear) {
 function getR(clear) {
     if (!rAccessed) {
         setMessage("form-r-error", null)
-        return false
+        return null
     }
     let selectedCount = 0
     let selected = null
