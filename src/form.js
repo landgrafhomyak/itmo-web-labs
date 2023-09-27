@@ -159,7 +159,7 @@ function shift() {
     }
 }
 
-function generateResponseUI(time, x, y, r, state) {
+function generateResponseUI(time, x, y, r, state, execTime) {
     if (state === "y" || state === "n") {
         x = +x
         y = +y
@@ -205,6 +205,7 @@ function generateResponseUI(time, x, y, r, state) {
         "splitter": document.createElement("tr"),
         "root": document.createElement("tr"),
         "time": document.createElement("td"),
+        "et": document.createElement("td"),
         "x": document.createElement("td"),
         "y": document.createElement("td"),
         "r": document.createElement("td"),
@@ -216,6 +217,8 @@ function generateResponseUI(time, x, y, r, state) {
     history.splitter.classList.add("splitter")
     history.root.appendChild(history.time)
     history.time.innerText = time + " UTC+0"
+    history.root.appendChild(history.et)
+    history.et.innerText = execTime + " ms"
     history.root.appendChild(history.x)
     history.x.innerText = x.substring(0, 6)
     history.root.appendChild(history.y)
@@ -247,11 +250,13 @@ function submit() {
     let x = getX(true)
     let y = getY(true)
     let r = getR(true)
+    if (x === null || y === null || r === null)
+        return
+
     xAccessed = false
     yAccessed = false
     rAccessed = false
-    if (x === null || y === null || r === null)
-        return
+    document.getElementById("form-submit").disabled = true
 
     const fd = new FormData()
     fd.append("x", x.toString())
@@ -265,7 +270,7 @@ function submit() {
 
     shift()
 
-    generateResponseUI(resp["time"], resp["x"], resp["y"], resp["r"], resp["state"])
+    generateResponseUI(resp["time"], resp["x"], resp["y"], resp["r"], resp["state"], resp["execute_time"])
 }
 
 
@@ -274,10 +279,10 @@ function clearHistory() {
     xhr.open("GET", "./clear.php", false)
     xhr.send()
 
-    for (const elem of document.getElementById("dot-points").children)
+    for (const elem of Array.from(document.getElementById("dot-points").children))
         elem.remove()
 
-    for (const elem of document.getElementById("dot-links").children)
+    for (const elem of Array.from(document.getElementById("dot-links").children))
         elem.remove()
 
     const historyRoot = document.getElementById("request-history").children[0]

@@ -25,14 +25,16 @@ class Request
     public string $r;
     public bool $result;
     public string $date;
+    public float $execTime;
 
-    function __construct(string $x, string $y, string $r, bool $result, string $date)
+    function __construct(string $x, string $y, string $r, bool $result, string $date, float $execTime)
     {
         $this->x = $x;
         $this->y = $y;
         $this->r = $r;
         $this->result = $result;
         $this->date = $date;
+        $this->execTime = $execTime;
     }
 
     static public function checkX(string $input): bool
@@ -85,7 +87,7 @@ class Database extends SQLite3
     public function createTable()
     {
         $this->prepare(
-            "CREATE TABLE IF NOT EXISTS requests_history(date TEXT, x TEXT, y TEXT, r TEXT, result BOOLEAN);"
+            "CREATE TABLE IF NOT EXISTS requests_history(date TEXT, x TEXT, y TEXT, r TEXT, result BOOLEAN, exec_time REAL);"
         )->execute();
     }
 
@@ -96,16 +98,17 @@ class Database extends SQLite3
         )->execute();
     }
 
-    public function addRecord(string $time, string $x, string $y, string $r, bool $result)
+    public function addRecord(string $time, string $x, string $y, string $r, bool $result, float $execTime)
     {
         $statement = $this->prepare(
-            "INSERT INTO requests_history VALUES (:t, :x, :y, :r, :result);"
+            "INSERT INTO requests_history VALUES (:t, :x, :y, :r, :result, :et);"
         );
         $statement->bindValue(":t", $time);
         $statement->bindValue(":x", $x);
         $statement->bindValue(":y", $y);
         $statement->bindValue(":r", $r);
         $statement->bindValue(":result", $result);
+        $statement->bindValue(":et", $execTime);
         $statement->execute();
     }
 
@@ -118,13 +121,12 @@ class Database extends SQLite3
         $result = $statement->execute();
         $out = array();
         while ($row = $result->fetchArray()) {
-            $out[] = new Request($row["x"], $row["y"], $row["r"], boolval($row["result"]), $row["date"]);
+            $out[] = new Request($row["x"], $row["y"], $row["r"], boolval($row["result"]), $row["date"], $row["exec_time"]);
         }
         return $out;
     }
 
 
 }
-
 
 ?>

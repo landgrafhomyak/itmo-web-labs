@@ -186,6 +186,7 @@ $history = $db->getLastRequests($requestHistorySize);
     <table id="request-history">
         <tr>
             <th>Время запроса</th>
+            <th>Время выполнения запроса</th>
             <th>X</th>
             <th>Y</th>
             <th>R</th>
@@ -196,6 +197,7 @@ $history = $db->getLastRequests($requestHistorySize);
             echo "<tr class='splitter'></tr>";
             echo "<tr  id='request-" . $i . "'>";
             echo "<td>" . htmlspecialchars($history[$i]->date) . " UTC+0</td>";
+            echo "<td>" . htmlspecialchars($history[$i]->execTime) . " ms</td>";
             if (Request::checkX($history[$i]->x)) {
                 echo "<td>" . htmlspecialchars(substr($history[$i]->x, 0, 6)) . "</td>";
             } else {
