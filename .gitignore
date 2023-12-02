@@ -6,3 +6,4 @@
 *.jar
 build/
 /out/
+/*/out/
