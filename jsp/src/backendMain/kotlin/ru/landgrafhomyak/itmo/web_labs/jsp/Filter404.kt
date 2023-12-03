@@ -1,0 +1,21 @@
+package ru.landgrafhomyak.itmo.web_labs.jsp
+
+import jakarta.servlet.Filter
+import jakarta.servlet.FilterChain
+import jakarta.servlet.ServletRequest
+import jakarta.servlet.ServletResponse
+import jakarta.servlet.http.HttpFilter
+import jakarta.servlet.http.HttpServletRequest
+import jakarta.servlet.http.HttpServletResponse
+import jakarta.ws.rs.container.PreMatching
+import jakarta.ws.rs.ext.Provider
+
+class Filter404 : HttpFilter() {
+    override fun doFilter(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain) {
+        if (request.servletPath == "/") {
+            chain.doFilter(request, response)
+        } else {
+            request.getRequestDispatcher("/WEB-INF/404.jsp").forward(request, response)
+        }
+    }
+}
