@@ -1,8 +1,12 @@
 plugins {
     kotlin("multiplatform")
+    war
 }
 
 operator fun File.div(child: String): File = this.resolve(child)
+
+configurations.forEach { println(it) }
+
 
 kotlin {
     jvm("backend") {
@@ -13,7 +17,7 @@ kotlin {
 
         withJava()
 
-        tasks.register<War>("war") {
+        /*tasks.register<War>("war") {
             val sourceCompilation = compilations["main"]
             dependsOn(tasks[sourceCompilation.compileAllTaskName])
             classpath = sourceCompilation.output.classesDirs + sourceCompilation.runtimeDependencyFiles
@@ -24,8 +28,30 @@ kotlin {
 
             // archiveVersion.set("v${project.version}")
             destinationDirectory = projectDir.resolve("out")
-        }
+            idea.project.settings.ideArtifacts {
+                this.register("war") {
+                    this.archive()
+                }
+            }
+        }*/
 
+
+        tasks.war {
+            val sourceCompilation = compilations["main"]
+            dependsOn(tasks[sourceCompilation.compileAllTaskName])
+            classpath = sourceCompilation.output.classesDirs + sourceCompilation.runtimeDependencyFiles
+            group = "build"
+
+            val moduleDirectory = projectDir / "src" / "backendMain"
+            webAppDirectory =  moduleDirectory / "webapp"
+            webXml =moduleDirectory / "WEB-INF" / "web.xml"
+            webInf {
+                from(moduleDirectory / "WEB-INF" / "beans.xml")
+            }
+
+            // archiveVersion.set("v${project.version}")
+            destinationDirectory = projectDir.resolve("out")
+        }
     }
     js("frontend") {
         binaries.executable()
@@ -44,6 +70,7 @@ kotlin {
         val backendMain by getting {
             dependencies {
                 compileOnly("jakarta.servlet:jakarta.servlet-api:6.0.0")
+                implementation("jakarta.inject:jakarta.inject-api:2.0.1")
             }
         }
         val backendTest by getting
