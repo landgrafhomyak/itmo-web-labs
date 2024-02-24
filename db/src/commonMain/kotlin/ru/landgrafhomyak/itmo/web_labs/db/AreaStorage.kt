@@ -21,7 +21,7 @@ interface AreaStorage {
      * @return List of requests.
      */
     @Throws(UnauthorizedException::class)
-    fun getHistory(token: ByteArray?): List<RequestData>
+    fun getNewerToOlderHistory(token: ByteArray?): List<RequestData>
 
     /**
      * Clears requests history for user.

@@ -1,5 +1,7 @@
 package ru.landgrafhomyak.itmo.web_labs.db
 
+import kotlin.jvm.JvmField
+
 /**
  * Represents info about request and response to it.
  *
@@ -15,13 +17,21 @@ package ru.landgrafhomyak.itmo.web_labs.db
  */
 @Suppress("MemberVisibilityCanBePrivate")
 class RequestData(
+    @JvmField
     val xRaw: String,
+    @JvmField
     val yRaw: String,
+    @JvmField
     val rRaw: String,
+    @JvmField
     val x: Double?,
+    @JvmField
     val y: Double?,
+    @JvmField
     val r: Double?,
+    @JvmField
     val result: Boolean,
     val time: ULong,
+    @JvmField
     val execTime: Double
 )

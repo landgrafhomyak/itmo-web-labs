@@ -3,5 +3,5 @@
        xsi:schemaLocation="
         http://java.sun.com/xml/ns/javaee
         http://java.sun.com/xml/ns/javaee/beans_4_0.xsd"
-       bean-discovery-mode="annotated">
+       bean-discovery-mode="all">
 </beans>

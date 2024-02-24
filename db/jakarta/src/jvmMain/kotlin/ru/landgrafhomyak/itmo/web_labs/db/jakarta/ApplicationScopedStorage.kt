@@ -12,7 +12,7 @@ class ApplicationScopedStorage : AreaStorage {
         this.data.add(data)
     }
 
-    override fun getHistory(token: ByteArray?): List<RequestData> = this.data
+    override fun getNewerToOlderHistory(token: ByteArray?): List<RequestData> = this.data
 
     override fun clearHistory(token: ByteArray?) {
         this.data.clear()

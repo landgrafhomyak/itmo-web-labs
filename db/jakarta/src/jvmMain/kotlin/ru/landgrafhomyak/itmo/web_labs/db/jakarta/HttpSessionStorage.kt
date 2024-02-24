@@ -16,13 +16,13 @@ class HttpSessionStorage(private val session: HttpSession, private val key: Stri
         }
     }
 
-    override fun getHistory(token: ByteArray?): List<RequestData> {
+    override fun getNewerToOlderHistory(token: ByteArray?): List<RequestData> {
         val raw = this.session.getAttribute(this.key)
         @Suppress("LiftReturnOrAssignment")
         if (raw != null) {
             @Suppress("UNCHECKED_CAST")
             val list = this.session.getAttribute(this.key) as MutableList<RequestData>
-            return list
+            return list.asReversed()
         } else {
             return emptyList()
         }

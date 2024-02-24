@@ -49,34 +49,38 @@ kotlin {
             }
 
             // archiveVersion.set("v${project.version}")
-            destinationDirectory = projectDir.resolve("out")
+            destinationDirectory = projectDir / "out"
         }
     }
     js("frontend") {
         binaries.executable()
         browser {
             commonWebpackConfig {
-                cssSupport {
-                    enabled.set(true)
-                }
+                outputFileName = "form.js"
+                outputPath = buildDir / "compiledK2JS"
             }
         }
     }
     sourceSets {
-        val commonMain by getting
-        val commonTest by getting {
+        val commonMain by getting {
+            dependencies {
+                implementation(project(":common"))
+                implementation(project(":db"))
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
+            }
         }
+        val commonTest by getting
         val backendMain by getting {
             dependencies {
                 compileOnly("jakarta.servlet:jakarta.servlet-api:$jakartaServletApiVersion")
                 implementation("jakarta.inject:jakarta.inject-api:2.0.1")
                 implementation("jakarta.ws.rs:jakarta.ws.rs-api:3.1.0")
-
-
+                implementation(project(":db:jakarta"))
+                compileOnly("jakarta.servlet.jsp:jakarta.servlet.jsp-api:4.0.0-M1")
             }
         }
         val backendTest by getting
-        val frontendMain by getting {}
+        val frontendMain by getting
         val frontendTest by getting
     }
 }
@@ -86,3 +90,8 @@ kotlin {
 //    val jsBrowserDistribution = tasks.named("frontendBrowserDistribution")
 //    from(jsBrowserDistribution)
 //}
+
+tasks.war {
+    dependsOn(tasks["frontendBrowserWebpack"])
+    from( buildDir / "compiledK2JS")
+}

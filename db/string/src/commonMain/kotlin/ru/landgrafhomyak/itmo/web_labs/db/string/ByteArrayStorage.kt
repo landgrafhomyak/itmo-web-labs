@@ -48,7 +48,7 @@ abstract class ByteArrayStorage : AreaStorage {
         this.saveDataBytes(newData)
     }
 
-    override fun getHistory(token: ByteArray?): List<RequestData> {
+    override fun getNewerToOlderHistory(token: ByteArray?): List<RequestData> {
         require(token == null)
         var offset = 8
         val data = Array(IntSerializing.int64FromBigEndian(this.data).toInt()) { i ->
