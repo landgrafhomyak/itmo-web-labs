@@ -4,6 +4,7 @@ import ru.landgrafhomyak.itmo.web.impl.modules.utility.escapeHtml
 import ru.landgrafhomyak.itmo.web.impl.modules.utility.validate7joinToClassAttributeOrNothing
 import ru.landgrafhomyak.itmo.web.svg_generator.Pen
 import ru.landgrafhomyak.itmo.web.svg_generator.SvgPathDStringPen
+import ru.landgrafhomyak.itmo.web_labs.db.PointData
 
 class StringSvgGraphGenerationContext : GraphGenerationContext {
     private val builder = StringBuilder()
@@ -120,7 +121,7 @@ class StringSvgGraphGenerationContext : GraphGenerationContext {
         }
     }
 
-    override fun point(x: Double, y: Double, dataX: Double, dataY: Double, vararg classes: String) {
+    override fun point(x: Double, y: Double, data: PointData, vararg classes: String) {
         this._checkState()
         this.builder.append("<circle ${classes.validate7joinToClassAttributeOrNothing()} x='$x' y='$y' data-x='${dataX}' data-y='${dataY}'></circle>")
 

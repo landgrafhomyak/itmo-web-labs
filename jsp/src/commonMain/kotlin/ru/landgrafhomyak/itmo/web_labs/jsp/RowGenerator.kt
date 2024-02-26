@@ -1,7 +1,7 @@
 package ru.landgrafhomyak.itmo.web_labs.jsp
 
 import kotlinx.datetime.Instant
-import ru.landgrafhomyak.itmo.web_labs.db.RequestData
+import ru.landgrafhomyak.itmo.web_labs.db.PointData
 import kotlin.jvm.JvmStatic
 
 interface RowGenerator {
@@ -21,7 +21,7 @@ interface RowGenerator {
 
     companion object {
         @JvmStatic
-        fun generateRow(generator: RowGenerator, data: RequestData, customResultText: String? = null, customResultClass: String? = null) {
+        fun generateRow(generator: RowGenerator, data: PointData, customResultText: String? = null, customResultClass: String? = null) {
             generator.startRow("history-row")
 
             generator.startCell("time")

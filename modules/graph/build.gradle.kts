@@ -20,6 +20,7 @@ kotlin {
             dependencies {
                 api("ru.landgrafhomyak.itmo.web:graph-meta:1.0")
                 implementation(project(":modules:utility"))
+                implementation(project(":modules:db"))
             }
         }
         val commonTest by getting

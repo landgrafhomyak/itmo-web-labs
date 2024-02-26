@@ -6,7 +6,7 @@ import kotlinx.dom.appendText
 import org.w3c.dom.Element
 import org.w3c.dom.HTMLButtonElement
 import org.w3c.xhr.XMLHttpRequest
-import ru.landgrafhomyak.itmo.web_labs.db.RequestData
+import ru.landgrafhomyak.itmo.web_labs.db.PointData
 
 class InputMeta(
     private val submitButton: HTMLButtonElement,
@@ -43,7 +43,7 @@ class InputMeta(
     }
 
     internal fun submitDynamic(x: String, y: String, r: String) {
-        val data = RequestData(
+        val data = PointData(
             xRaw = x, yRaw = y, rRaw = r,
             x = AreaCheckerImpl.validateX(x), y = AreaCheckerImpl.validateY(y), r = AreaCheckerImpl.validateR(r),
             result = false,

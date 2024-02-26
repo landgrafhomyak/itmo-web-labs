@@ -1,12 +1,12 @@
 
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="ru.landgrafhomyak.itmo.web_labs.db.RequestData" %>
+<%@ page import="ru.landgrafhomyak.itmo.web_labs.db.PointData" %>
 <%@ page import="ru.landgrafhomyak.itmo.web_labs.jsp.RowGenerator" %>
 <%@ page import="ru.landgrafhomyak.itmo.web_labs.jsp.JspWriterRowGenerator" %>
-<%! private RequestData parsed; %>
+<%! private PointData parsed; %>
 <%
-    parsed = (RequestData) (request.getAttribute("parsed"));
+    parsed = (PointData) (request.getAttribute("parsed"));
     if (parsed.x == null || parsed.y == null || parsed.r == null)
         response.setStatus(400);
     else {

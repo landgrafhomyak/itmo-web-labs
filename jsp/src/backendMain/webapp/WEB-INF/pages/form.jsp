@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="ru.landgrafhomyak.itmo.web_labs.db.jakarta.HttpSessionStorage" %>
-<%@ page import="ru.landgrafhomyak.itmo.web_labs.db.RequestData" %>
+<%@ page import="ru.landgrafhomyak.itmo.web_labs.db.PointData" %>
 <%@ page import="ru.landgrafhomyak.itmo.web_labs.jsp.RowGenerator" %>
 <%@ page import="ru.landgrafhomyak.itmo.web_labs.jsp.JspWriterRowGenerator" %>
 <html>
@@ -69,7 +69,7 @@
         <%
             HttpSessionStorage historyStorage = new HttpSessionStorage(request.getSession(), "history");
             out.println("<tr id='first-static-history-entry' class='separator'><td></td></tr>");
-            for (RequestData req : historyStorage.getNewerToOlderHistory(null)) {
+            for (PointData req : historyStorage.getNewerToOlderHistory(null)) {
                 RowGenerator.generateRow(new JspWriterRowGenerator(out), req, null, null);
                 out.println("<tr class='separator'><td></td></tr>");
             }

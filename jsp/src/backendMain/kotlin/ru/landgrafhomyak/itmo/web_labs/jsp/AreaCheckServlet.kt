@@ -4,7 +4,7 @@ import jakarta.inject.Singleton
 import jakarta.servlet.http.HttpServlet
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import ru.landgrafhomyak.itmo.web_labs.db.RequestData
+import ru.landgrafhomyak.itmo.web_labs.db.PointData
 import ru.landgrafhomyak.itmo.web_labs.db.jakarta.HttpSessionStorage
 import java.time.Instant
 
@@ -37,7 +37,7 @@ class AreaCheckServlet : HttpServlet() {
         }
         val execEndTime = System.nanoTime()
         val execTime = (execEndTime - execStartTime).toDouble() * 1e-9
-        val reqObj = RequestData(
+        val reqObj = PointData(
             xRaw = xRaw ?: "", yRaw = yRaw ?: "", rRaw = rRaw ?: "",
             x = x, y = y, r = r,
             result = result,

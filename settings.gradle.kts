@@ -1,10 +1,10 @@
 rootProject.name = "itmo-web-labs"
 include(":common")
-include(":db")
-include(":db:string")
-include(":db:jakarta")
 include(":jsp")
 include(":lab3")
 include(":lab4")
 include(":modules:utility")
 include(":modules:graph")
+include(":modules:db")
+include(":modules:db:string")
+include(":modules:db:jakarta")

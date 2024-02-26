@@ -65,7 +65,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(project(":common"))
-                implementation(project(":db"))
+                implementation(project(":modules:db"))
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
             }
         }
@@ -75,7 +75,7 @@ kotlin {
                 compileOnly("jakarta.servlet:jakarta.servlet-api:$jakartaServletApiVersion")
                 implementation("jakarta.inject:jakarta.inject-api:2.0.1")
                 implementation("jakarta.ws.rs:jakarta.ws.rs-api:3.1.0")
-                implementation(project(":db:jakarta"))
+                implementation(project(":modules:db:jakarta"))
                 compileOnly("jakarta.servlet.jsp:jakarta.servlet.jsp-api:4.0.0-M1")
             }
         }
