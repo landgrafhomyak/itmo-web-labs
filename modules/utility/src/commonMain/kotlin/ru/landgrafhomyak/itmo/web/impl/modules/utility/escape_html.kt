@@ -1,4 +1,4 @@
-package ru.landgrafhomyak.itmo.web_labs.jsp
+package ru.landgrafhomyak.itmo.web.impl.modules.utility
 
 import kotlin.jvm.JvmName
 
