@@ -1,16 +1,18 @@
 package ru.landgrafhomyak.itmo.web_labs.jsp
 
+import ru.landgrafhomyak.itmo.web.svg_generator.GraphInfo
+import ru.landgrafhomyak.itmo.web.svg_generator.QuartInfo
 import ru.landgrafhomyak.itmo.web_labs.common.AreaChecker
-import kotlin.math.hypot
+import kotlin.jvm.JvmField
+import kotlin.jvm.JvmStatic
 
-object AreaCheckerImpl : AreaChecker {
-    override fun check(x: Double, y: Double, r: Double): Boolean = when {
-        x >= 0 && y >= 0 -> x <= r && y <= r
-        x <= 0 && y >= 0 -> hypot(x, y) < r / 2
-        x <= 0 && y <= 0 -> x + y >= -r / 2
-        x > 0 && y < 0 -> false
-        else -> false
-    }
+object Model: AreaChecker {
+    override val graph = GraphInfo(
+        topRight = QuartInfo.Rectangle(true, true),
+        bottomRight = null,
+        bottomLeft = QuartInfo.Triangle(false, false),
+        topLeft = QuartInfo.OuterArc(false, false)
+    )
 
     override fun validateX(raw: String): Double? = raw
         .toIntOrNull()

@@ -21,7 +21,11 @@ kotlin {
         }
     }
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+            dependencies {
+                implementation(project(":modules:graph"))
+            }
+        }
         val commonTest by getting {
         }
         val backendMain by getting {

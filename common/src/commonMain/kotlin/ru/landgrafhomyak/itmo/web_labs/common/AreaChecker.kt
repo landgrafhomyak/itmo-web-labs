@@ -1,8 +1,10 @@
 package ru.landgrafhomyak.itmo.web_labs.common
 
-interface AreaChecker {
-    fun check(x: Double, y: Double, r: Double): Boolean
+import ru.landgrafhomyak.itmo.web.svg_generator.GraphInfo
 
+interface AreaChecker {
+
+    val graph: GraphInfo
     fun validateX(raw: String): Double?
     fun validateY(raw: String): Double?
     fun validateR(raw: String): Double?

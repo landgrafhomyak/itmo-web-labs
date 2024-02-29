@@ -67,6 +67,9 @@ kotlin {
                 implementation(project(":common"))
                 implementation(project(":modules:db"))
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
+                implementation(project(":modules:graph"))
+                implementation(project(":modules:form"))
+                implementation(project(":modules:utility"))
             }
         }
         val commonTest by getting

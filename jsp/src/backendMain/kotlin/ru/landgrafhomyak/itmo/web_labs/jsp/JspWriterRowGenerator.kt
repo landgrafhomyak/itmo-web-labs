@@ -1,6 +1,7 @@
 package ru.landgrafhomyak.itmo.web_labs.jsp
 
 import jakarta.servlet.jsp.JspWriter
+import ru.landgrafhomyak.itmo.web.impl.modules.utility.escapeHtml
 
 class JspWriterRowGenerator(private val dst: JspWriter) : RowGenerator {
     override fun startRow(vararg classes: String) {

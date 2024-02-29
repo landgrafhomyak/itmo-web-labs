@@ -14,6 +14,7 @@ kotlin {
         }
     }
     js("frontend") {
+        browser {}
     }
     sourceSets {
         val commonMain by getting {
