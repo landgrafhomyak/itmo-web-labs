@@ -23,11 +23,11 @@ h1#title:hover {
     -webkit-text-fill-color: transparent;
 }
 
-div#canvas-holder {
+div#graph-holder {
     padding: 10px 10%;
 }
 
-svg#canvas {
+svg#graph {
     width: 100%;
     aspect-ratio: 1 / 1;
     max-height: 50vh;
@@ -35,42 +35,42 @@ svg#canvas {
 
 
 
-svg#canvas line.axis, svg#canvas polygon.axis {
+svg#graph line.axis, svg#graph polygon.axis {
     stroke: #022;
 }
 
-svg#canvas line.axis {
+svg#graph line.axis {
     stroke-width: 1;
 
 }
 
-svg#canvas text.axis {
+svg#graph text.axis {
     font-family: monospace;
     fill: #022;
     font-size: 6px;
 }
 
-svg#canvas text.axis.x {
+svg#graph text.axis.x {
     alignment-baseline: text-before-edge;
     text-anchor: middle;
 }
 
-svg#canvas text.axis.y {
+svg#graph text.axis.y {
     alignment-baseline: middle;
     text-anchor: end;
 }
 
-svg#canvas circle.point {
+svg#graph circle.point {
     stroke: none;
     fill: yellow;
 }
 
-svg#canvas circle.point:target {
+svg#graph circle.point:target {
     stroke: red;
     stroke-width: 1;
 }
 
-svg#canvas text.point {
+svg#graph text.point {
     alignment-baseline: text-after-edge;
     text-anchor: start;
     font-size: 6px;

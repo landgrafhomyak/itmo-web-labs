@@ -58,6 +58,7 @@ class RadioInputComponent(private val owningGroup: Element, values: Iterator<Var
                 label.appendChild(button)
                 return@map meta
             }
+            .onEach { m -> this.owningGroup.appendChild(m.owningLabel) }
             .mapTo(this.metas) { m -> m }
     }
 

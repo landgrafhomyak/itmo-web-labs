@@ -17,7 +17,7 @@ fun main() {
         cx = 0.0,
         cy = 0.0,
         rw = 100.0,
-        rh = -100.0,
+        rh = 100.0,
         pointsGroup = document.getElementById("graph-points")!! as SVGGElement,
         emptyArray<PointData>().iterator()
     )

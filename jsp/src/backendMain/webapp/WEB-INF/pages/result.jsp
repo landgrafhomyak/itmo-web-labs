@@ -1,23 +1,20 @@
-
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="ru.landgrafhomyak.itmo.web_labs.db.PointData" %>
 <%@ page import="ru.landgrafhomyak.itmo.web_labs.jsp.RowGenerator" %>
 <%@ page import="ru.landgrafhomyak.itmo.web_labs.jsp.JspWriterRowGenerator" %>
-<%! private PointData parsed; %>
 <%
-    parsed = (PointData) (request.getAttribute("parsed"));
-    if (parsed.x == null || parsed.y == null || parsed.r == null)
+    PointData parsed = (PointData) (request.getAttribute("parsed"));
+    if (parsed.getX() == null || parsed.getY() == null || parsed.getR() == null)
         response.setStatus(400);
     else {
         response.setStatus(200);
-        if (parsed.result) {
+        if (parsed.getResult()) {
             response.addHeader("X-AreaCheckResult", "true");
         } else {
             response.addHeader("X-AreaCheckResult", "false");
         }
     }
-    response.addHeader("X-ExecTime", Double.toString(parsed.execTime));
+    response.addHeader("X-ExecTime", Double.toString(parsed.getExecTime()));
 %>
 <html>
 <head>

@@ -16,9 +16,9 @@
     <h1 id="title">ВЫБЕРИ И ТОЧКА</h1>
 </div>
 <div id="canvas-holder">
-    <svg viewBox="-150 -150 300 300" id="canvas" style="aspect-ratio: 1; margin: auto; max-width: 500px;">
+    <svg viewBox="-150 -150 300 300" id="graph" style="aspect-ratio: 1; margin: auto; max-width: 500px;">
         <g transform="scale(1,-1)">
-            <path d="<%= SvgPathDStringPen.draw(0.0, 0.0, 100.0, -100.0, Model.INSTANCE.getGraph()) %>" fill="#0ff"></path>
+            <path d="<%= SvgPathDStringPen.draw(0.0, 0.0, 100.0, 100.0, Model.INSTANCE.getGraph()) %>" fill="#0ff"></path>
             <polygon points="-2,125 0,130 2,125" class="axis"></polygon>
             <line x1="0" x2="0" y1="125" y2="-125" class="axis"></line>
             <line x1="-2" x2="2" y1="100" y2="100" class="axis"></line>
@@ -33,7 +33,7 @@
             <line y1="-2" y2="2" x1="0" x2="0" class="axis"></line>
             <line y1="-2" y2="2" x1="-50" x2="-50" class="axis"></line>
             <line y1="-2" y2="2" x1="-100" x2="-100" class="axis"></line>
-            <g id="points"></g>
+            <g id="graph-points"></g>
         </g>
     </svg>
 </div>
