@@ -69,7 +69,7 @@
     </div>
 </div>
 <div>
-    <table class="history">
+    <table id="history">
         <%
             HttpSessionStorage historyStorage = new HttpSessionStorage(request.getSession(), "history");
             out.println("<tr id='first-static-history-entry' class='separator'><td></td></tr>");
