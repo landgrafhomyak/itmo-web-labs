@@ -96,5 +96,5 @@ kotlin {
 
 tasks.war {
     dependsOn(tasks["frontendBrowserWebpack"])
-    from( buildDir / "compiledK2JS")
+    from(buildDir / "compiledK2JS")
 }

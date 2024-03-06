@@ -5,6 +5,8 @@
 <%@ page import="ru.landgrafhomyak.itmo.web_labs.jsp.JspWriterRowGenerator" %>
 <%@ page import="ru.landgrafhomyak.itmo.web.svg_generator.SvgPathDStringPen" %>
 <%@ page import="ru.landgrafhomyak.itmo.web_labs.jsp.Model" %>
+<%@ page import="ru.landgrafhomyak.itmo.web.impl.modules.utility.Escape_htmlKt" %>
+<%! private int x; %>
 <html>
 <head>
     <title>Title</title>
@@ -15,7 +17,20 @@
 <div>
     <h1 id="title">ВЫБЕРИ И ТОЧКА</h1>
 </div>
-<div id="canvas-holder">
+<div id="graph-holder">
+    <span style="display: none" id="points-data">
+        <%
+            HttpSessionStorage historyStorage = new HttpSessionStorage(request.getSession(), "history");
+            for (PointData req : historyStorage.getNewerToOlderHistory(null)) {
+                out.print(Escape_htmlKt.escapeHtml(req.getXRaw()));
+                out.print("|");
+                out.print(Escape_htmlKt.escapeHtml(req.getYRaw()));
+                out.print("|");
+                out.print(Escape_htmlKt.escapeHtml(req.getRRaw()));
+                out.print("\n");
+            }
+        %>
+    </span>
     <svg viewBox="-150 -150 300 300" id="graph" style="aspect-ratio: 1; margin: auto; max-width: 500px;">
         <g transform="scale(1,-1)">
             <path d="<%= SvgPathDStringPen.draw(0.0, 0.0, 100.0, 100.0, Model.INSTANCE.getGraph()) %>" fill="#0ff"></path>
@@ -33,7 +48,8 @@
             <line y1="-2" y2="2" x1="0" x2="0" class="axis"></line>
             <line y1="-2" y2="2" x1="-50" x2="-50" class="axis"></line>
             <line y1="-2" y2="2" x1="-100" x2="-100" class="axis"></line>
-            <g id="graph-points"></g>
+            <g id="graph-points">
+            </g>
         </g>
     </svg>
 </div>
@@ -71,7 +87,6 @@
 <div>
     <table id="history">
         <%
-            HttpSessionStorage historyStorage = new HttpSessionStorage(request.getSession(), "history");
             out.println("<tr id='first-static-history-entry' class='separator'><td></td></tr>");
             for (PointData req : historyStorage.getNewerToOlderHistory(null)) {
                 RowGenerator.generateRow(new JspWriterRowGenerator(out), req, null, null);

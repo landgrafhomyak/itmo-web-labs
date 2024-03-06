@@ -60,7 +60,7 @@ svg#graph text.axis.y {
     text-anchor: end;
 }
 
-svg#graph circle.point {
+svg#graph circle.point, svg#graph circle.miss, svg#graph circle.hit {
     stroke: none;
     fill: yellow;
 }

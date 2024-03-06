@@ -4,10 +4,12 @@ import encodeURIComponent
 import kotlinx.browser.document
 import kotlinx.browser.window
 import org.w3c.dom.HTMLButtonElement
+import org.w3c.dom.HTMLElement
 import org.w3c.dom.svg.SVGGElement
 import org.w3c.dom.svg.SVGSVGElement
 import ru.landgrafhomyak.itmo.web.impl.modules.graph.GraphComponent
 import ru.landgrafhomyak.itmo.web.impl.modules.graph.RadioInputComponent
+import ru.landgrafhomyak.itmo.web.impl.modules.graph.ValueUpdateHandler
 import ru.landgrafhomyak.itmo.web.impl.modules.graph.Variant
 import ru.landgrafhomyak.itmo.web_labs.db.PointData
 
@@ -19,7 +21,28 @@ fun main() {
         rw = 100.0,
         rh = 100.0,
         pointsGroup = document.getElementById("graph-points")!! as SVGGElement,
-        emptyArray<PointData>().iterator()
+        (document.getElementById("points-data")!! as HTMLElement)
+            .innerText
+            .trim()
+            .split("\n")
+//            .asSequence()
+            .map { s -> s.trim() }
+            .filter { s -> s.isNotEmpty() }
+            .map { s -> s.split("|") }
+            .map { ss ->
+                PointData(
+                    xRaw = ss[0],
+                    yRaw = ss[1],
+                    rRaw = ss[2],
+                    x = ss[0].toDoubleOrNull(),
+                    y = ss[1].toDoubleOrNull(),
+                    r = ss[2].toDoubleOrNull(),
+                    result = false,
+                    execTime = 0.0,
+                    time = 0u
+                )
+            }
+            .iterator()
     )
 
     val xInputComponent = RadioInputComponent(
@@ -67,7 +90,16 @@ fun main() {
 
     xInputComponent.addHandler(controllerComponent.SetXHandler)
     yInputComponent.addHandler(controllerComponent.SetYHandler)
-    rInputComponent.addHandler(controllerComponent.SetRHandler)
+    class UpdateRHandler : ValueUpdateHandler {
+        override fun updateValue(newValue: Double?) {
+            controllerComponent.r = newValue
+            graphComponent.reposition(newValue)
+            controllerComponent.updateForm()
+        }
+
+    }
+
+    rInputComponent.addHandler(UpdateRHandler())
     submitButton.addEventListener("click", controllerComponent.SubmitButtonOnclickEventHandler)
 
     class FormUpdaterImpl : ControllerComponent.UpdateFormHandler {
@@ -83,7 +115,7 @@ fun main() {
             window.location.href = "./?x=${
                 encodeURIComponent(x?.toString() ?: "")
             }&y=${
-                encodeURIComponent(y?.toString() ?: "")
+                encodeURIComponent(y?.unaryMinus()?.toString() ?: "")
             }&r=${
                 encodeURIComponent(r?.toString() ?: "")
             }"
@@ -91,4 +123,21 @@ fun main() {
     }
 
     controllerComponent.addSubmitHandler(SubmitHandlerImpl())
+
+    class SubmitOnGraphClickImpl : GraphComponent.ClickHandler {
+        override fun handleGraphClick(graph: GraphComponent, x1: Double, y1: Double, r: Double, xr: Double, yr: Double) {
+            controllerComponent.x = xr
+            controllerComponent.y = yr
+            controllerComponent.updateForm()
+            controllerComponent.submit()
+        }
+
+        override fun handleGraphClickNoR(graph: GraphComponent, x1: Double, y1: Double) {
+            controllerComponent.x = x1
+            controllerComponent.y = y1
+            controllerComponent.updateForm()
+        }
+    }
+
+    graphComponent.onClick(SubmitOnGraphClickImpl())
 }

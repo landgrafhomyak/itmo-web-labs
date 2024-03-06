@@ -3,6 +3,7 @@ package ru.landgrafhomyak.itmo.web.impl.modules.graph
 import org.w3c.dom.events.Event
 import org.w3c.dom.events.EventListener
 import org.w3c.dom.events.MouseEvent
+import org.w3c.dom.get
 import org.w3c.dom.svg.SVGCircleElement
 import org.w3c.dom.svg.SVGGElement
 import org.w3c.dom.svg.SVGSVGElement
@@ -39,11 +40,13 @@ class GraphComponent(
                 )
             }
             .onEach { (e, d) -> e.classList.add(*Texts.generatePointClasses(d)) }
+            .onEach { (e, _) -> ; e.setAttribute("r", (this.rw / 20).toString()) }
             .onEach { (e, d) ->
                 val title = this.pointsGroup.ownerDocument!!.createElement("title")
                 title.innerHTML = Texts.generatePointTitle(d).escapeHtml()
                 e.appendChild(title)
             }
+            .onEach { p -> this.pointsGroup.appendChild(p.elem) }
             .forEach { p -> this.points.add(p) }
         this.reposition()
     }
@@ -65,8 +68,8 @@ class GraphComponent(
         }
 
         this.points.forEach { (e, d) ->
-            e.cx.baseVal.value = (this.cx + d.x!! * this.rw / r).toFloat()
-            e.cy.baseVal.value = (this.cy + d.y!! * this.rh / r).toFloat()
+            e.setAttribute("cx", (this.cx + d.x!! * this.rw / r).toString())
+            e.setAttribute("cy", (this.cy + d.y!! * this.rw / r).toString())
         }
     }
 
