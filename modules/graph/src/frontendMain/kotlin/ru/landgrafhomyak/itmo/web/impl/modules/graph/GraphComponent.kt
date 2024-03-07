@@ -7,7 +7,7 @@ import org.w3c.dom.get
 import org.w3c.dom.svg.SVGCircleElement
 import org.w3c.dom.svg.SVGGElement
 import org.w3c.dom.svg.SVGSVGElement
-import ru.landgrafhomyak.itmo.web.impl.modules.utility.escapeHtml
+import ru.landgrafhomyak.itmo.web.impl.utility.escapeHtml
 import ru.landgrafhomyak.itmo.web.impl.modules.db.PointData
 
 class GraphComponent(

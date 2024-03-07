@@ -1,4 +1,4 @@
-package ru.landgrafhomyak.itmo.web.impl.modules.utility
+package ru.landgrafhomyak.itmo.web.impl.utility
 
 import org.w3c.dom.ItemArrayLike
 
