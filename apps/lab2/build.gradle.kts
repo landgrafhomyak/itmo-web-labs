@@ -34,15 +34,24 @@ kotlin {
             }
         }*/
 
+        val sourceCompilation = compilations["main"]
+        val moduleDirectory = projectDir / "src" / "backendMain"
+        val assembledWebAppPath = buildDir / "assembledWebApp"
+        val webappDirAssembleTask = tasks.create<Copy>("assembleWebApp") {
+            dependsOn(tasks[sourceCompilation.compileAllTaskName])
+            from( moduleDirectory / "webapp", project(":modules:ui").projectDir / "src" / "frontendMain" / "static")
+            destinationDir = assembledWebAppPath
+        }
 
         tasks.war {
-            val sourceCompilation = compilations["main"]
-            dependsOn(tasks[sourceCompilation.compileAllTaskName])
+
+
+            dependsOn(tasks[sourceCompilation.compileAllTaskName], webappDirAssembleTask)
             classpath = sourceCompilation.output.classesDirs + sourceCompilation.runtimeDependencyFiles
             group = "build"
 
-            val moduleDirectory = projectDir / "src" / "backendMain"
-            webAppDirectory = moduleDirectory / "webapp"
+            webAppDirectory = assembledWebAppPath
+
             webXml = moduleDirectory / "WEB-INF" / "web.xml"
             webInf {
                 from(moduleDirectory / "WEB-INF" / "beans.xml")
