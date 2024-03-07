@@ -12,7 +12,7 @@ import jakarta.ws.rs.ext.Provider
 
 class Filter404 : HttpFilter() {
     override fun doFilter(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain) {
-        if (request.servletPath == "/" || request.servletPath == "/history.css" || request.servletPath == "/form.css" || request.servletPath == "/form.js" || request.servletPath == "/form.js.map") {
+        if (request.servletPath == "/" || request.servletPath == "/common.css" || request.servletPath == "/history.css" || request.servletPath == "/form.css" || request.servletPath == "/form.js" || request.servletPath == "/form.js.map") {
             chain.doFilter(request, response)
         } else {
             request.getRequestDispatcher("/WEB-INF/pages/404.jsp").forward(request, response)

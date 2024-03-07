@@ -19,14 +19,34 @@
 <html>
 <head>
     <title>Результат</title>
+    <link rel="stylesheet" href="common.css">
     <link rel="stylesheet" href="history.css">
 </head>
 <body>
-<a href=".">&lArr; back</a>
-<table id="history">
-    <%
-        RowGenerator.generateRow(new JspWriterRowGenerator(out), parsed, null, null);
-    %>
-</table>
+
+<div>
+    <h1 class="title">ВАШ ВЫБОР И ТОЧКА</h1>
+</div>
+<div style="text-align: center">
+    <a href=".">&lArr; Вернуться к форме</a>
+</div>
+<div>
+    <table class="history">
+        <tr>
+            <th>Дата и время запроса</th>
+            <th>X</th>
+            <th>Y</th>
+            <th>R</th>
+            <th>Результат проверки</th>
+            <th>Время выполнения запроса</th>
+        </tr>
+        <tr id='first-static-history-entry' class='separator'>
+            <td></td>
+        </tr>
+        <%
+            RowGenerator.generateRow(new JspWriterRowGenerator(out), parsed, null, null);
+        %>
+    </table>
+</div>
 </body>
 </html>

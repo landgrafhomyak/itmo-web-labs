@@ -10,12 +10,13 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="common.css">
     <link rel="stylesheet" href="form.css">
     <link rel="stylesheet" href="history.css">
 </head>
 <body>
 <div>
-    <h1 id="title">ВЫБЕРИ И ТОЧКА</h1>
+    <h1 class="title">ВЫБЕРИ И ТОЧКА</h1>
 </div>
 <div id="graph-holder">
     <span style="display: none" id="points-data">
@@ -85,9 +86,17 @@
     </div>
 </div>
 <div>
-    <table id="history">
+    <table class="history">
+        <tr>
+            <th>Дата и время запроса</th>
+            <th>X</th>
+            <th>Y</th>
+            <th>R</th>
+            <th>Результат проверки</th>
+            <th>Время выполнения запроса</th>
+        </tr>
+        <tr id='first-static-history-entry' class='separator'><td></td></tr>
         <%
-            out.println("<tr id='first-static-history-entry' class='separator'><td></td></tr>");
             for (PointData req : historyStorage.getNewerToOlderHistory(null)) {
                 RowGenerator.generateRow(new JspWriterRowGenerator(out), req, null, null);
                 out.println("<tr class='separator'><td></td></tr>");

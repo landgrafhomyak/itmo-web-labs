@@ -1,25 +1,26 @@
-table#history {
+table.history {
     width: 100%;
     border-collapse: collapse;
     text-align: center;
+    font-size: smaller;
 }
 
-table#history tr.separator, table#history tr.separator > td {
+table.history tr.separator, table.history tr.separator > td {
     height: 10px;
     border: none;
     background-color: white;
 }
 
-table#history td {
+table.history td {
     border: 1px solid black;
     background-color: #f3f3f3;
     padding: 5px;
 }
 
-table#history tr:target td {
+table.history tr:target td {
     background-color: #ddd;
 }
 
-table#history td.invalid-input {
+table.history td.invalid-input {
     background-color: coral;
 }
