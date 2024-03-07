@@ -1,4 +1,4 @@
-package ru.landgrafhomyak.itmo.web_labs.common
+package ru.landgrafhomyak.itmo.web.impl.modules.graph
 
 import ru.landgrafhomyak.itmo.web.graph_meta.GraphInfo
 

@@ -1,7 +1,5 @@
 rootProject.name = "itmo-web-labs"
 
-include(":common")
-
 include(":modules:utility")
 include(":modules:db")
 include(":modules:db:string")

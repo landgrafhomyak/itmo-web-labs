@@ -3,7 +3,6 @@ package ru.landgrafhomyak.itmo.web.impl.modules.graph
 import org.w3c.dom.events.Event
 import org.w3c.dom.events.EventListener
 import org.w3c.dom.events.MouseEvent
-import org.w3c.dom.get
 import org.w3c.dom.svg.SVGCircleElement
 import org.w3c.dom.svg.SVGGElement
 import org.w3c.dom.svg.SVGSVGElement
@@ -39,11 +38,11 @@ class GraphComponent(
                     d
                 )
             }
-            .onEach { (e, d) -> e.classList.add(*Texts.generatePointClasses(d)) }
+            .onEach { (e, d) -> e.classList.add(*HtmlTexts.generatePointClasses(d)) }
             .onEach { (e, _) -> ; e.setAttribute("r", (this.rw / 20).toString()) }
             .onEach { (e, d) ->
                 val title = this.pointsGroup.ownerDocument!!.createElement("title")
-                title.innerHTML = Texts.generatePointTitle(d).escapeHtml()
+                title.innerHTML = HtmlTexts.generatePointTitle(d).escapeHtml()
                 e.appendChild(title)
             }
             .onEach { p -> this.pointsGroup.appendChild(p.elem) }
@@ -61,10 +60,10 @@ class GraphComponent(
     fun reposition() {
         val r = this.lastR
         if (r == null) {
-            this.pointsGroup.classList.add(Texts.NO_R_POINT_CLASS)
+            this.pointsGroup.classList.add(HtmlTexts.NO_R_POINT_CLASS)
             return
         } else {
-            this.pointsGroup.classList.remove(Texts.NO_R_POINT_CLASS)
+            this.pointsGroup.classList.remove(HtmlTexts.NO_R_POINT_CLASS)
         }
 
         this.points.forEach { (e, d) ->

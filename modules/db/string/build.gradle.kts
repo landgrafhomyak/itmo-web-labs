@@ -15,7 +15,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(project(":common"))
+                compileOnly(project(":modules:utility"))
                 compileOnly(project(":modules:db"))
             }
         }

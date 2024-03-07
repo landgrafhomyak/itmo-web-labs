@@ -1,8 +1,8 @@
-package ru.landgrafhomyak.itmo.web_labs.common
+package ru.landgrafhomyak.itmo.web.impl.utility
 
 import kotlin.jvm.JvmStatic
 
-object IntSerializing {
+object IntSerializers {
     @JvmStatic
     fun int64ToBigEndian(value: Long, dst: ByteArray, offset: Int = 0) {
         dst[offset] = (value shr 56).toByte()
@@ -43,25 +43,3 @@ object IntSerializing {
     fun doubleFromBigEndian(src: ByteArray, offset: Int = 0) =
         Double.fromBits(this.int64FromBigEndian(src, offset))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

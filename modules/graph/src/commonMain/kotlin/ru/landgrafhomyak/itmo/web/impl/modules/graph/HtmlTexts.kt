@@ -3,7 +3,7 @@ package ru.landgrafhomyak.itmo.web.impl.modules.graph
 import ru.landgrafhomyak.itmo.web.impl.modules.db.PointData
 import kotlin.jvm.JvmStatic
 
-object Texts {
+object HtmlTexts {
     @JvmStatic
     fun generatePointTitle(data: PointData): String {
         if (!data.isValid) throw IllegalArgumentException("Can't generate title for invalid point")

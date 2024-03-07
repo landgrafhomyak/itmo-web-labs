@@ -4,7 +4,7 @@
 <%@ page import="ru.landgrafhomyak.itmo.web.impl.apps.lab2.RowGenerator" %>
 <%@ page import="ru.landgrafhomyak.itmo.web.impl.apps.lab2.JspWriterRowGenerator" %>
 <%@ page import="ru.landgrafhomyak.itmo.web.impl.apps.lab2.Model" %>
-<%@ page import="ru.landgrafhomyak.itmo.web.impl.modules.utility.Escape_htmlKt" %>
+<%@ page import="ru.landgrafhomyak.itmo.web.impl.utility.Escape_htmlKt" %>
 <%@ page import="ru.landgrafhomyak.itmo.web.graph_meta.SvgPathDStringPen" %>
 <%! private int x; %>
 <html>

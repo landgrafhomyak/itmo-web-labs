@@ -1,6 +1,6 @@
 package ru.landgrafhomyak.itmo.web.impl.modules.db.string
 
-import ru.landgrafhomyak.itmo.web_labs.common.IntSerializing
+import ru.landgrafhomyak.itmo.web.impl.utility.IntSerializers
 import ru.landgrafhomyak.itmo.web.impl.modules.db.AreaStorage
 import ru.landgrafhomyak.itmo.web.impl.modules.db.PointData
 
@@ -30,18 +30,18 @@ abstract class ByteArrayStorage : AreaStorage {
                 (yRawEncoded.size.toLong() shl 16) or
                 (xRawEncoded.size.toLong() shl 24) or
                 (packet.size.toLong() shl 32)
-        IntSerializing.int64ToBigEndian(flags, packet, 0)
-        IntSerializing.int64ToBigEndian(data.x?.toBits() ?: 0L, packet, 8)
-        IntSerializing.int64ToBigEndian(data.y?.toBits() ?: 0L, packet, 16)
-        IntSerializing.int64ToBigEndian(data.r?.toBits() ?: 0L, packet, 24)
-        IntSerializing.uint64ToBigEndian(data.time, packet, 32)
-        IntSerializing.doubleToBigEndian(data.execTime, packet, 40)
+        IntSerializers.int64ToBigEndian(flags, packet, 0)
+        IntSerializers.int64ToBigEndian(data.x?.toBits() ?: 0L, packet, 8)
+        IntSerializers.int64ToBigEndian(data.y?.toBits() ?: 0L, packet, 16)
+        IntSerializers.int64ToBigEndian(data.r?.toBits() ?: 0L, packet, 24)
+        IntSerializers.uint64ToBigEndian(data.time, packet, 32)
+        IntSerializers.doubleToBigEndian(data.execTime, packet, 40)
         xRawEncoded.copyInto(packet, 48)
         yRawEncoded.copyInto(packet, 48 + xRawEncoded.size)
         rRawEncoded.copyInto(packet, 48 + xRawEncoded.size + yRawEncoded.size)
 
         val newData = ByteArray(this.data.size + packet.size)
-        IntSerializing.int64ToBigEndian(IntSerializing.int64FromBigEndian(this.data) + 1, this.data)
+        IntSerializers.int64ToBigEndian(IntSerializers.int64FromBigEndian(this.data) + 1, this.data)
         packet.copyInto(newData, 8)
         this.data.copyInto(newData, 8 + packet.size)
         this.data = newData
@@ -51,17 +51,17 @@ abstract class ByteArrayStorage : AreaStorage {
     override fun getNewerToOlderHistory(token: ByteArray?): List<PointData> {
         require(token == null)
         var offset = 8
-        val data = Array(IntSerializing.int64FromBigEndian(this.data).toInt()) { i ->
-            val flags = IntSerializing.int64FromBigEndian(this.data, offset)
+        val data = Array(IntSerializers.int64FromBigEndian(this.data).toInt()) { i ->
+            val flags = IntSerializers.int64FromBigEndian(this.data, offset)
             val packetSize = (flags shr 32).toInt()
             val xRawSize = ((flags shr 24) and 255).toInt()
             val yRawSize = ((flags shr 16) and 255).toInt()
             val rRawSize = ((flags shr 8) and 255).toInt()
-            val x = if (flags and 0b1000L == 0L) null else IntSerializing.doubleFromBigEndian(this.data, offset + 8)
-            val y = if (flags and 0b100L == 0L) null else IntSerializing.doubleFromBigEndian(this.data, offset + 16)
-            val r = if (flags and 0b10L == 0L) null else IntSerializing.doubleFromBigEndian(this.data, offset + 24)
-            val time = IntSerializing.uint64FromBigEndian(this.data, offset + 32)
-            val execTime = IntSerializing.doubleFromBigEndian(this.data, offset + 40)
+            val x = if (flags and 0b1000L == 0L) null else IntSerializers.doubleFromBigEndian(this.data, offset + 8)
+            val y = if (flags and 0b100L == 0L) null else IntSerializers.doubleFromBigEndian(this.data, offset + 16)
+            val r = if (flags and 0b10L == 0L) null else IntSerializers.doubleFromBigEndian(this.data, offset + 24)
+            val time = IntSerializers.uint64FromBigEndian(this.data, offset + 32)
+            val execTime = IntSerializers.doubleFromBigEndian(this.data, offset + 40)
             val xRaw = this.data.decodeToString(offset + 48)
             val yRaw = this.data.decodeToString(offset + 48 + xRawSize)
             val rRaw = this.data.decodeToString(offset + 48 + xRawSize + yRawSize)

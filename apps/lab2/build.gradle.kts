@@ -64,7 +64,6 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(project(":common"))
                 implementation(project(":modules:db"))
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
                 implementation(project(":modules:graph"))
