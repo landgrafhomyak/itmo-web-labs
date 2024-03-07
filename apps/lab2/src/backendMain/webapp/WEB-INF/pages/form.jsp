@@ -22,11 +22,11 @@
         <%
             HttpSessionStorage historyStorage = new HttpSessionStorage(request.getSession(), "history");
             for (PointData req : historyStorage.getNewerToOlderHistory(null)) {
-                out.print(Escape_htmlKt.escapeHtml(req.getXRaw()));
+                out.print(Escape_htmlKt.escapeHtml(req.xRaw()));
                 out.print("|");
-                out.print(Escape_htmlKt.escapeHtml(req.getYRaw()));
+                out.print(Escape_htmlKt.escapeHtml(req.yRaw()));
                 out.print("|");
-                out.print(Escape_htmlKt.escapeHtml(req.getRRaw()));
+                out.print(Escape_htmlKt.escapeHtml(req.rRaw()));
                 out.print("\n");
             }
         %>

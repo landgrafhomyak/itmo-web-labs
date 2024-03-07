@@ -12,6 +12,8 @@ import ru.landgrafhomyak.itmo.web.impl.modules.graph.RadioInputComponent
 import ru.landgrafhomyak.itmo.web.impl.modules.graph.ValueUpdateHandler
 import ru.landgrafhomyak.itmo.web.impl.modules.graph.Variant
 import ru.landgrafhomyak.itmo.web.impl.modules.db.PointData
+import ru.landgrafhomyak.itmo.web.impl.utility.TimeDelta
+import ru.landgrafhomyak.itmo.web.impl.utility.TimePoint
 
 fun main() {
     val graphComponent = GraphComponent(
@@ -38,8 +40,8 @@ fun main() {
                     y = ss[1].toDoubleOrNull(),
                     r = ss[2].toDoubleOrNull(),
                     result = false,
-                    execTime = 0.0,
-                    time = 0u
+                    execTime = TimeDelta._fromULong(0u),
+                    time = TimePoint._fromULong(0u)
                 )
             }
             .iterator()

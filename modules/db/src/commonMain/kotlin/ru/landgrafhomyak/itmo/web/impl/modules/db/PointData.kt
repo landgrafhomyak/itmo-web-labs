@@ -1,5 +1,9 @@
 package ru.landgrafhomyak.itmo.web.impl.modules.db
 
+import ru.landgrafhomyak.itmo.web.impl.utility.TimeDelta
+import ru.landgrafhomyak.itmo.web.impl.utility.TimePoint
+import kotlin.jvm.JvmName
+
 /**
  * Represents info about request and response to it.
  *
@@ -15,15 +19,25 @@ package ru.landgrafhomyak.itmo.web.impl.modules.db
  */
 @Suppress("MemberVisibilityCanBePrivate")
 class PointData(
+    @get:JvmName("xRaw")
     val xRaw: String,
+    @get:JvmName("yRaw")
     val yRaw: String,
+    @get:JvmName("rRaw")
     val rRaw: String,
+    @get:JvmName("x")
     val x: Double?,
+    @get:JvmName("y")
     val y: Double?,
+    @get:JvmName("r")
     val r: Double?,
+    @get:JvmName("result")
     val result: Boolean,
-    val time: ULong,
-    val execTime: Double
+    @get:JvmName("time")
+    val time: TimePoint,
+    @get:JvmName("execTime")
+    val execTime: TimeDelta
 ) {
+    @get:JvmName("isValid")
     val isValid: Boolean get() = this.x != null && this.y != null && this.r != null
 }

@@ -1,6 +1,5 @@
 package ru.landgrafhomyak.itmo.web.impl.apps.lab2
 
-import kotlinx.datetime.Instant
 import ru.landgrafhomyak.itmo.web.impl.modules.db.PointData
 import kotlin.jvm.JvmStatic
 
@@ -25,7 +24,7 @@ interface RowGenerator {
             generator.startRow("history-row")
 
             generator.startCell("time")
-            generator.writeText(Instant.fromEpochSeconds(data.time.toLong()).toString())
+            generator.writeText(data.time.format())
             generator.endCell()
 
             if (data.x == null)
@@ -56,7 +55,7 @@ interface RowGenerator {
             generator.endCell()
 
             generator.startExecTimeCell("exec-time")
-            generator.writeText("${data.execTime} μs")
+            generator.writeText(data.execTime.format())
             generator.endCell()
 
             generator.endRow()

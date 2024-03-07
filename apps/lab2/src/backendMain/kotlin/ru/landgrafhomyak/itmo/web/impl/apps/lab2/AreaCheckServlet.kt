@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import ru.landgrafhomyak.itmo.web.impl.modules.db.PointData
 import ru.landgrafhomyak.itmo.web.impl.modules.db.jakarta.HttpSessionStorage
+import ru.landgrafhomyak.itmo.web.impl.utility.StartingTimePoint
+import ru.landgrafhomyak.itmo.web.impl.utility.TimePoint
 import java.time.Instant
 
 @Singleton
@@ -16,8 +18,8 @@ class AreaCheckServlet : HttpServlet() {
             return this@singleOrNull[0]
         }
 
-        val currentTime = Instant.now().epochSecond
-        val execStartTime = System.nanoTime()
+        val currentTime = TimePoint.now()
+        val execStartTime = StartingTimePoint.start()
 
         val params = req.parameterMap
         val xRaw = params.getOrDefault("x", null)?.singleOrNull()
@@ -26,22 +28,16 @@ class AreaCheckServlet : HttpServlet() {
         val x = xRaw?.let(Model::validateX)
         val y = yRaw?.let(Model::validateY)
         val r = rRaw?.let(Model::validateR)
-        val isDataValid: Boolean
-        val result: Boolean
-        if (x != null && y != null && r != null) {
-            isDataValid = true
-            result = Model.graph.check(x, y, r)
-        } else {
-            isDataValid = false
-            result = false
-        }
-        val execEndTime = System.nanoTime()
-        val execTime = (execEndTime - execStartTime).toDouble() * 1e-9
+        val result: Boolean =
+            if (x == null || y == null || r == null) false
+            else Model.graph.check(x, y, r)
+
+        val execTime = execStartTime.snapshot()
         val reqObj = PointData(
             xRaw = xRaw ?: "", yRaw = yRaw ?: "", rRaw = rRaw ?: "",
             x = x, y = y, r = r,
             result = result,
-            time = currentTime.toULong(), execTime = execTime
+            time = currentTime, execTime = execTime
         )
         val db = HttpSessionStorage(req.session, "history")
         db.saveRequest(null, reqObj)

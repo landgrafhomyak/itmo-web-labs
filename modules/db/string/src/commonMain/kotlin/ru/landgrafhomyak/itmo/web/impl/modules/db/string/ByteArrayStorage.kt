@@ -3,6 +3,8 @@ package ru.landgrafhomyak.itmo.web.impl.modules.db.string
 import ru.landgrafhomyak.itmo.web.impl.utility.IntSerializers
 import ru.landgrafhomyak.itmo.web.impl.modules.db.AreaStorage
 import ru.landgrafhomyak.itmo.web.impl.modules.db.PointData
+import ru.landgrafhomyak.itmo.web.impl.utility.TimeDelta
+import ru.landgrafhomyak.itmo.web.impl.utility.TimePoint
 
 abstract class ByteArrayStorage : AreaStorage {
     private var data: ByteArray = this.loadDataBytes()
@@ -34,8 +36,8 @@ abstract class ByteArrayStorage : AreaStorage {
         IntSerializers.int64ToBigEndian(data.x?.toBits() ?: 0L, packet, 8)
         IntSerializers.int64ToBigEndian(data.y?.toBits() ?: 0L, packet, 16)
         IntSerializers.int64ToBigEndian(data.r?.toBits() ?: 0L, packet, 24)
-        IntSerializers.uint64ToBigEndian(data.time, packet, 32)
-        IntSerializers.doubleToBigEndian(data.execTime, packet, 40)
+        IntSerializers.uint64ToBigEndian(data.time._asULong(), packet, 32)
+        IntSerializers.uint64ToBigEndian(data.execTime._asULong(), packet, 40)
         xRawEncoded.copyInto(packet, 48)
         yRawEncoded.copyInto(packet, 48 + xRawEncoded.size)
         rRawEncoded.copyInto(packet, 48 + xRawEncoded.size + yRawEncoded.size)
@@ -61,7 +63,7 @@ abstract class ByteArrayStorage : AreaStorage {
             val y = if (flags and 0b100L == 0L) null else IntSerializers.doubleFromBigEndian(this.data, offset + 16)
             val r = if (flags and 0b10L == 0L) null else IntSerializers.doubleFromBigEndian(this.data, offset + 24)
             val time = IntSerializers.uint64FromBigEndian(this.data, offset + 32)
-            val execTime = IntSerializers.doubleFromBigEndian(this.data, offset + 40)
+            val execTime = IntSerializers.uint64FromBigEndian(this.data, offset + 40)
             val xRaw = this.data.decodeToString(offset + 48)
             val yRaw = this.data.decodeToString(offset + 48 + xRawSize)
             val rRaw = this.data.decodeToString(offset + 48 + xRawSize + yRawSize)
@@ -74,8 +76,8 @@ abstract class ByteArrayStorage : AreaStorage {
                 x = x,
                 y = y,
                 r = r,
-                time = time,
-                execTime = execTime,
+                time = TimePoint._fromULong(time),
+                execTime = TimeDelta._fromULong(execTime),
                 result = flags and 1L != 0L
             )
         }

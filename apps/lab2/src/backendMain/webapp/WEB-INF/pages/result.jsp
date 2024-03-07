@@ -4,17 +4,17 @@
 <%@ page import="ru.landgrafhomyak.itmo.web.impl.apps.lab2.JspWriterRowGenerator" %>
 <%
     PointData parsed = (PointData) (request.getAttribute("parsed"));
-    if (parsed.getX() == null || parsed.getY() == null || parsed.getR() == null)
+    if (!parsed.isValid())
         response.setStatus(400);
     else {
         response.setStatus(200);
-        if (parsed.getResult()) {
+        if (parsed.result()) {
             response.addHeader("X-AreaCheckResult", "true");
         } else {
             response.addHeader("X-AreaCheckResult", "false");
         }
     }
-    response.addHeader("X-ExecTime", Double.toString(parsed.getExecTime()));
+    response.addHeader("X-ExecTime", parsed.execTime().format());
 %>
 <html>
 <head>
