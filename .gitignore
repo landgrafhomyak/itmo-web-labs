@@ -6,5 +6,5 @@
 *.jar
 build/
 /out/
-/*/out/
+/apps/*/out/
 /kotlin-js-store/

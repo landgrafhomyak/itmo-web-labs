@@ -3,8 +3,6 @@ package ru.landgrafhomyak.itmo.web.impl.apps.lab2
 import ru.landgrafhomyak.itmo.web.graph_meta.GraphInfo
 import ru.landgrafhomyak.itmo.web.graph_meta.QuartInfo
 import ru.landgrafhomyak.itmo.web_labs.common.AreaChecker
-import kotlin.jvm.JvmField
-import kotlin.jvm.JvmStatic
 
 object Model: AreaChecker {
     override val graph = GraphInfo(
