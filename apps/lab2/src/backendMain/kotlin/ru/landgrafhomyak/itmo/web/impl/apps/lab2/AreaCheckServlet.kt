@@ -4,8 +4,8 @@ import jakarta.inject.Singleton
 import jakarta.servlet.http.HttpServlet
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import ru.landgrafhomyak.itmo.web_labs.db.PointData
-import ru.landgrafhomyak.itmo.web_labs.db.jakarta.HttpSessionStorage
+import ru.landgrafhomyak.itmo.web.impl.modules.db.PointData
+import ru.landgrafhomyak.itmo.web.impl.modules.db.jakarta.HttpSessionStorage
 import java.time.Instant
 
 @Singleton

@@ -1,7 +1,7 @@
 package ru.landgrafhomyak.itmo.web.impl.apps.lab2
 
 import kotlinx.datetime.Instant
-import ru.landgrafhomyak.itmo.web_labs.db.PointData
+import ru.landgrafhomyak.itmo.web.impl.modules.db.PointData
 import kotlin.jvm.JvmStatic
 
 interface RowGenerator {

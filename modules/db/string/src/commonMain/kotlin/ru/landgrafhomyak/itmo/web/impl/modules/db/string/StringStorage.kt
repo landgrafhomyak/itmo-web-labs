@@ -1,6 +1,6 @@
-package ru.landgrafhomyak.itmo.web_labs.db.string
+package ru.landgrafhomyak.itmo.web.impl.modules.db.string
 
-import ru.landgrafhomyak.itmo.web_labs.db.AreaStorage
+import ru.landgrafhomyak.itmo.web.impl.modules.db.AreaStorage
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
 

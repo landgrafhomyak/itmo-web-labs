@@ -1,6 +1,6 @@
 package ru.landgrafhomyak.itmo.web.impl.modules.graph
 
-import ru.landgrafhomyak.itmo.web_labs.db.PointData
+import ru.landgrafhomyak.itmo.web.impl.modules.db.PointData
 import kotlin.jvm.JvmStatic
 
 object Texts {

@@ -11,7 +11,7 @@ import ru.landgrafhomyak.itmo.web.impl.modules.graph.GraphComponent
 import ru.landgrafhomyak.itmo.web.impl.modules.graph.RadioInputComponent
 import ru.landgrafhomyak.itmo.web.impl.modules.graph.ValueUpdateHandler
 import ru.landgrafhomyak.itmo.web.impl.modules.graph.Variant
-import ru.landgrafhomyak.itmo.web_labs.db.PointData
+import ru.landgrafhomyak.itmo.web.impl.modules.db.PointData
 
 fun main() {
     val graphComponent = GraphComponent(

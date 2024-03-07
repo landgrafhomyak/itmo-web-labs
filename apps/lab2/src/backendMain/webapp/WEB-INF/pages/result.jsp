@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="ru.landgrafhomyak.itmo.web_labs.db.PointData" %>
+<%@ page import="ru.landgrafhomyak.itmo.web.impl.modules.db.PointData" %>
 <%@ page import="ru.landgrafhomyak.itmo.web.impl.apps.lab2.RowGenerator" %>
 <%@ page import="ru.landgrafhomyak.itmo.web.impl.apps.lab2.JspWriterRowGenerator" %>
 <%

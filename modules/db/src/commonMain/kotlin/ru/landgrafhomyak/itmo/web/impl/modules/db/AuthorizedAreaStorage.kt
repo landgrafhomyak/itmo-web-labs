@@ -1,4 +1,4 @@
-package ru.landgrafhomyak.itmo.web_labs.db
+package ru.landgrafhomyak.itmo.web.impl.modules.db
 
 interface AuthorizedAreaStorage : AreaStorage {
     /**

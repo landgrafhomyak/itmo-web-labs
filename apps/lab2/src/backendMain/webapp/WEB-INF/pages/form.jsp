@@ -1,11 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="ru.landgrafhomyak.itmo.web_labs.db.jakarta.HttpSessionStorage" %>
-<%@ page import="ru.landgrafhomyak.itmo.web_labs.db.PointData" %>
+<%@ page import="ru.landgrafhomyak.itmo.web.impl.modules.db.jakarta.HttpSessionStorage" %>
+<%@ page import="ru.landgrafhomyak.itmo.web.impl.modules.db.PointData" %>
 <%@ page import="ru.landgrafhomyak.itmo.web.impl.apps.lab2.RowGenerator" %>
 <%@ page import="ru.landgrafhomyak.itmo.web.impl.apps.lab2.JspWriterRowGenerator" %>
-<%@ page import="ru.landgrafhomyak.itmo.web.graph_meta.SvgPathDStringPen" %>
 <%@ page import="ru.landgrafhomyak.itmo.web.impl.apps.lab2.Model" %>
 <%@ page import="ru.landgrafhomyak.itmo.web.impl.modules.utility.Escape_htmlKt" %>
+<%@ page import="ru.landgrafhomyak.itmo.web.graph_meta.SvgPathDStringPen" %>
 <%! private int x; %>
 <html>
 <head>

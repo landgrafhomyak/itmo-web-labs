@@ -1,8 +1,8 @@
-package ru.landgrafhomyak.itmo.web_labs.db.string
+package ru.landgrafhomyak.itmo.web.impl.modules.db.string
 
 import ru.landgrafhomyak.itmo.web_labs.common.IntSerializing
-import ru.landgrafhomyak.itmo.web_labs.db.AreaStorage
-import ru.landgrafhomyak.itmo.web_labs.db.PointData
+import ru.landgrafhomyak.itmo.web.impl.modules.db.AreaStorage
+import ru.landgrafhomyak.itmo.web.impl.modules.db.PointData
 
 abstract class ByteArrayStorage : AreaStorage {
     private var data: ByteArray = this.loadDataBytes()

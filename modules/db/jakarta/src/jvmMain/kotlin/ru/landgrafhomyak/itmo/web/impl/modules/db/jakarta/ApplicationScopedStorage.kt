@@ -1,8 +1,8 @@
-package ru.landgrafhomyak.itmo.web_labs.db.jakarta
+package ru.landgrafhomyak.itmo.web.impl.modules.db.jakarta
 
 import jakarta.enterprise.context.ApplicationScoped
-import ru.landgrafhomyak.itmo.web_labs.db.AreaStorage
-import ru.landgrafhomyak.itmo.web_labs.db.PointData
+import ru.landgrafhomyak.itmo.web.impl.modules.db.AreaStorage
+import ru.landgrafhomyak.itmo.web.impl.modules.db.PointData
 import java.util.LinkedList
 
 @ApplicationScoped

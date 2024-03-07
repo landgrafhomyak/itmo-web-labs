@@ -1,8 +1,8 @@
-package ru.landgrafhomyak.itmo.web_labs.db.jakarta
+package ru.landgrafhomyak.itmo.web.impl.modules.db.jakarta
 
 import jakarta.servlet.http.HttpSession
-import ru.landgrafhomyak.itmo.web_labs.db.AreaStorage
-import ru.landgrafhomyak.itmo.web_labs.db.PointData
+import ru.landgrafhomyak.itmo.web.impl.modules.db.AreaStorage
+import ru.landgrafhomyak.itmo.web.impl.modules.db.PointData
 
 class HttpSessionStorage(private val session: HttpSession, private val key: String) : AreaStorage {
     override fun saveRequest(token: ByteArray?, data: PointData) {
