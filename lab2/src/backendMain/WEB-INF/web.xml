@@ -6,7 +6,7 @@
          version="4.0">
     <filter>
         <filter-name>404</filter-name>
-        <filter-class>ru.landgrafhomyak.itmo.web_labs.jsp.Filter404</filter-class>
+        <filter-class>ru.landgrafhomyak.itmo.web.impl.apps.lab2.Filter404</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>404</filter-name>
@@ -15,7 +15,7 @@
 
     <servlet>
         <servlet-name>controller</servlet-name>
-        <servlet-class>ru.landgrafhomyak.itmo.web_labs.jsp.ControllerServlet</servlet-class>
+        <servlet-class>ru.landgrafhomyak.itmo.web.impl.apps.lab2.ControllerServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>controller</servlet-name>

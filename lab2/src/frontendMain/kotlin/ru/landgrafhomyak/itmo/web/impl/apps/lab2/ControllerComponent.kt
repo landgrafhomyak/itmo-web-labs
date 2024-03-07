@@ -1,5 +1,5 @@
 
-package ru.landgrafhomyak.itmo.web_labs.jsp
+package ru.landgrafhomyak.itmo.web.impl.apps.lab2
 
 import org.w3c.dom.events.Event
 import org.w3c.dom.events.EventListener

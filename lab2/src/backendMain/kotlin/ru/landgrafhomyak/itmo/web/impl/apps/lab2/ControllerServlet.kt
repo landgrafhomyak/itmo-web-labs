@@ -1,4 +1,4 @@
-package ru.landgrafhomyak.itmo.web_labs.jsp
+package ru.landgrafhomyak.itmo.web.impl.apps.lab2
 
 import jakarta.inject.Inject
 import jakarta.servlet.http.HttpServlet

@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="ru.landgrafhomyak.itmo.web_labs.db.PointData" %>
-<%@ page import="ru.landgrafhomyak.itmo.web_labs.jsp.RowGenerator" %>
-<%@ page import="ru.landgrafhomyak.itmo.web_labs.jsp.JspWriterRowGenerator" %>
+<%@ page import="ru.landgrafhomyak.itmo.web.impl.apps.lab2.RowGenerator" %>
+<%@ page import="ru.landgrafhomyak.itmo.web.impl.apps.lab2.JspWriterRowGenerator" %>
 <%
     PointData parsed = (PointData) (request.getAttribute("parsed"));
     if (parsed.getX() == null || parsed.getY() == null || parsed.getR() == null)
@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="history.css">
 </head>
 <body>
-<a href="./">&lArr; back</a>
+<a href="">&lArr; back</a>
 <table id="history">
     <%
         RowGenerator.generateRow(new JspWriterRowGenerator(out), parsed, null, null);
