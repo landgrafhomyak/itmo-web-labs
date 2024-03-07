@@ -1,6 +1,6 @@
 package ru.landgrafhomyak.itmo.web_labs.common
 
-import ru.landgrafhomyak.itmo.web.svg_generator.GraphInfo
+import ru.landgrafhomyak.itmo.web.graph_meta.GraphInfo
 
 interface AreaChecker {
 

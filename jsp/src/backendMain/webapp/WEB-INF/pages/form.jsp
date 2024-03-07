@@ -3,7 +3,7 @@
 <%@ page import="ru.landgrafhomyak.itmo.web_labs.db.PointData" %>
 <%@ page import="ru.landgrafhomyak.itmo.web_labs.jsp.RowGenerator" %>
 <%@ page import="ru.landgrafhomyak.itmo.web_labs.jsp.JspWriterRowGenerator" %>
-<%@ page import="ru.landgrafhomyak.itmo.web.svg_generator.SvgPathDStringPen" %>
+<%@ page import="ru.landgrafhomyak.itmo.web.graph_meta.SvgPathDStringPen" %>
 <%@ page import="ru.landgrafhomyak.itmo.web_labs.jsp.Model" %>
 <%@ page import="ru.landgrafhomyak.itmo.web.impl.modules.utility.Escape_htmlKt" %>
 <%! private int x; %>

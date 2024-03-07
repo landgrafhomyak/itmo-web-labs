@@ -1,7 +1,7 @@
 package ru.landgrafhomyak.itmo.web_labs.jsp
 
-import ru.landgrafhomyak.itmo.web.svg_generator.GraphInfo
-import ru.landgrafhomyak.itmo.web.svg_generator.QuartInfo
+import ru.landgrafhomyak.itmo.web.graph_meta.GraphInfo
+import ru.landgrafhomyak.itmo.web.graph_meta.QuartInfo
 import ru.landgrafhomyak.itmo.web_labs.common.AreaChecker
 import kotlin.jvm.JvmField
 import kotlin.jvm.JvmStatic
