@@ -49,13 +49,13 @@ class RadioInputComponent(private val owningGroup: Element, values: Iterator<Var
             .map { (v, d) ->
                 val label = document.createElement("label").unsafeCast<HTMLLabelElement>()
                 label.classList.add("radio")
-                label.appendText(d)
                 val button = document.createElement("input").unsafeCast<HTMLInputElement>()
                 val meta = VariantElementsMeta(label, button, v)
                 button.type = "radio"
                 button.checked = false
                 button.addEventListener("input", meta)
                 label.appendChild(button)
+                label.appendText(d)
                 return@map meta
             }
             .onEach { m -> this.owningGroup.appendChild(m.owningLabel) }

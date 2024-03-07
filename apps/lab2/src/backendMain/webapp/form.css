@@ -62,7 +62,7 @@ svg#graph text.axis.y {
 
 svg#graph circle.point, svg#graph circle.miss, svg#graph circle.hit {
     stroke: none;
-    fill: yellow;
+    fill: #000dff;
 }
 
 svg#graph circle.point:target {
@@ -134,3 +134,8 @@ input#form-y.invalid, select#form-r.invalid, input#form-y.invalid:focus, select#
     background-color: #fed;
 }
 
+label {
+    border: 1px solid darkgrey;
+    padding: 2px;
+    display: inline-block;
+}

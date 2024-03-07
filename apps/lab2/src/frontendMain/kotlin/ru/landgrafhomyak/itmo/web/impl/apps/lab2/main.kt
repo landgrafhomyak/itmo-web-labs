@@ -115,7 +115,7 @@ fun main() {
             window.location.href = "./?x=${
                 encodeURIComponent(x?.toString() ?: "")
             }&y=${
-                encodeURIComponent(y?.unaryMinus()?.toString() ?: "")
+                encodeURIComponent(y?.toString() ?: "")
             }&r=${
                 encodeURIComponent(r?.toString() ?: "")
             }"

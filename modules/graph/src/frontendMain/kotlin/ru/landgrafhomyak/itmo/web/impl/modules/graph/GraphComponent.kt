@@ -34,14 +34,14 @@ class GraphComponent(
             .filter { d -> d.isValid }
             .map { d ->
                 Point(
-                    this.pointsGroup.ownerDocument!!.createElement("circle").unsafeCast<SVGCircleElement>(),
+                    this.pointsGroup.ownerDocument!!.createElementNS("http://www.w3.org/2000/svg", "circle").unsafeCast<SVGCircleElement>(),
                     d
                 )
             }
             .onEach { (e, d) -> e.classList.add(*HtmlTexts.generatePointClasses(d)) }
-            .onEach { (e, _) -> ; e.setAttribute("r", (this.rw / 20).toString()) }
+            .onEach { (e, _) -> e.setAttribute("r", (this.rw / 20).toString()) }
             .onEach { (e, d) ->
-                val title = this.pointsGroup.ownerDocument!!.createElement("title")
+                val title = this.pointsGroup.ownerDocument!!.createElementNS("http://www.w3.org/2000/svg", "title")
                 title.innerHTML = HtmlTexts.generatePointTitle(d).escapeHtml()
                 e.appendChild(title)
             }
@@ -68,7 +68,7 @@ class GraphComponent(
 
         this.points.forEach { (e, d) ->
             e.setAttribute("cx", (this.cx + d.x!! * this.rw / r).toString())
-            e.setAttribute("cy", (this.cy + d.y!! * this.rw / r).toString())
+            e.setAttribute("cy", (this.cy + d.y!! * this.rh / r).toString())
         }
     }
 

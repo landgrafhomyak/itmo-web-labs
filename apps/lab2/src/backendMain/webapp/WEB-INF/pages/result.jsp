@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="history.css">
 </head>
 <body>
-<a href="">&lArr; back</a>
+<a href=".">&lArr; back</a>
 <table id="history">
     <%
         RowGenerator.generateRow(new JspWriterRowGenerator(out), parsed, null, null);
