@@ -8,6 +8,7 @@ services:
     image: wildfly:29.0.1.Final-alpine
     ports:
       - "9990:8080"
+      - "9989:9989"
       - "9991:9990"
 
   h2:
