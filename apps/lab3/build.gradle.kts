@@ -5,7 +5,9 @@ plugins {
 
 operator fun File.div(child: String): File = this.resolve(child)
 
+val jakartaEeApiVersion: String by project
 val jakartaServletApiVersion: String by project
+val jakartaJsfVersion: String by project
 
 kotlin {
     jvm("backend") {
@@ -21,15 +23,16 @@ kotlin {
         val assembledWebAppPath = buildDir / "assembledWebApp"
         val webappDirAssembleTask = tasks.create<Copy>("assembleWebApp") {
             dependsOn(tasks[sourceCompilation.compileAllTaskName])
-            from( moduleDirectory / "webapp", project(":modules:ui").projectDir / "src" / "frontendMain" / "static")
+            from(moduleDirectory / "webapp", project(":modules:ui").projectDir / "src" / "frontendMain" / "static")
             destinationDir = assembledWebAppPath
         }
 
         tasks.war {
-
-
             dependsOn(tasks[sourceCompilation.compileAllTaskName], webappDirAssembleTask)
-            classpath = sourceCompilation.output.classesDirs + sourceCompilation.runtimeDependencyFiles
+            classpath = sourceCompilation.output.classesDirs
+                .plus(sourceCompilation.runtimeDependencyFiles)
+                .plus(files(sourceCompilation.output.resourcesDir))
+
             group = "build"
 
             webAppDirectory = assembledWebAppPath
@@ -64,11 +67,25 @@ kotlin {
         val commonTest by getting
         val backendMain by getting {
             dependencies {
-                compileOnly("jakarta.servlet:jakarta.servlet-api:$jakartaServletApiVersion")
-                implementation("jakarta.inject:jakarta.inject-api:2.0.1")
-                implementation("jakarta.ws.rs:jakarta.ws.rs-api:3.1.0")
-                implementation(project(":modules:db:jakarta"))
-                compileOnly("jakarta.servlet.jsp:jakarta.servlet.jsp-api:4.0.0-M1")
+//                implementation("jakarta.platform:jakarta.jakartaee-api:$jakartaEeApiVersion")
+//                implementation("jakarta.servlet:jakarta.servlet-api:$jakartaServletApiVersion")
+//                implementation("com.sun.faces:jsf-api:$jakartaJsfVersion")
+//                implementation("com.sun.faces:jsf-impl:$jakartaJsfVersion")
+//                implementation("jakarta.inject:jakarta.inject-api:2.0.1")
+//                implementation("jakarta.ws.rs:jakarta.ws.rs-api:3.1.0")
+//                implementation("org.primefaces:primefaces:13.0.7:jakarta")
+//                implementation("org.glassfish:jakarta.faces:3.0.0")
+//
+
+                compileOnly("jakarta.ejb:jakarta.ejb-api:4.0.0")
+                compileOnly("jakarta.faces:jakarta.faces-api:3.0.0")
+                compileOnly("jakarta.servlet:jakarta.servlet-api:5.0.0")
+                implementation("org.hibernate:hibernate-core:6.0.2.Final")
+                implementation("org.glassfish.jaxb:jaxb-runtime:3.0.2")
+                implementation("com.h2database:h2:2.2.224")
+
+                implementation(project(":modules:db:jpa"))
+
             }
         }
         val backendTest by getting

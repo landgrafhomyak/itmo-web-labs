@@ -1,0 +1,1 @@
+external fun encodeURIComponent(decodedURI: String): String

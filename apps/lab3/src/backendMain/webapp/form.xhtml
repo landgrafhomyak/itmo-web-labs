@@ -1,0 +1,97 @@
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:svg="http://www.w3.org/2000/svg"
+        xmlns:p="http://primefaces.org/ui"
+>
+<head>
+    <title>Title</title>
+    <link rel="stylesheet" href="common.css"/>
+    <link rel="stylesheet" href="form.css"/>
+    <link rel="stylesheet" href="history.css"/>
+</head>
+<body>
+<div>
+    <h1 class="title">ВЫБЕРИ И ТОЧКА</h1>
+</div>
+<div id="graph-holder">
+    <span style="display: none" id="points-data">
+    </span>
+    <svg:svg viewBox="-150 -150 300 300" id="graph" style="aspect-ratio: 1; margin: auto; max-width: 500px;">
+        <svg:g transform="scale(1,-1)">
+            <svg:path id="graph-area" d="" fill="#0ff"/>
+            <svg:polygon points="-2 125,0 130,2 125" class="axis"/>
+            <svg:line x1="0" x2="0" y1="125" y2="-125" class="axis"/>
+            <svg:line x1="-2" x2="2" y1="100" y2="100" class="axis"/>
+            <svg:line x1="-2" x2="2" y1="50" y2="50" class="axis"/>
+            <svg:line x1="-2" x2="2" y1="0" y2="0" class="axis"/>
+            <svg:line x1="-2" x2="2" y1="-50" y2="-50" class="axis"/>
+            <svg:line x1="-2" x2="2" y1="-100" y2="-100" class="axis"/>
+            <svg:polygon points="125,-2 130,0 125,2" class="axis"/>
+            <svg:line y1="0" y2="0" x1="125" x2="-125" class="axis"/>
+            <svg:line y1="-2" y2="2" x1="100" x2="100" class="axis"/>
+            <svg:line y1="-2" y2="2" x1="50" x2="50" class="axis"/>
+            <svg:line y1="-2" y2="2" x1="0" x2="0" class="axis"/>
+            <svg:line y1="-2" y2="2" x1="-50" x2="-50" class="axis"/>
+            <svg:line y1="-2" y2="2" x1="-100" x2="-100" class="axis"/>
+            <svg:g id="graph-points">
+            </svg:g>
+        </svg:g>
+    </svg:svg>
+</div>
+<div>
+    <div>
+        <table id="form">
+            <tr>
+                <td>x</td>
+                <td>
+                    <p:slider
+                            id="formX"
+                            onchange="lab3.updateX(formX.value)"
+                            for="decimal"
+                            minValue="-5"
+                            maxValue="5" step="1"
+                    />
+                </td>
+            </tr>
+            <tr>
+                <td>y</td>
+                <td id="form-y"></td>
+            </tr>
+            <tr>
+                <td>r</td>
+                <td>
+                    <p:slider
+                            id="formR"
+                            onchange="lab3.updateR(formR.value)"
+                            for="decimal"
+                            minValue="1"
+                            maxValue="3" step="1"
+                    />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button id="submit">Отправить</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div>
+    <table class="history">
+        <tr>
+            <th>Дата и время запроса</th>
+            <th>X</th>
+            <th>Y</th>
+            <th>R</th>
+            <th>Результат проверки</th>
+            <th>Время выполнения запроса</th>
+        </tr>
+        <tr id='first-static-history-entry' class='separator'>
+            <td></td>
+        </tr>
+    </table>
+</div>
+<script type="application/javascript" src="form.js"></script>
+</body>
+</html>

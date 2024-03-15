@@ -10,6 +10,8 @@ services:
       - "9990:8080"
       - "9989:9989"
       - "9991:9990"
+    links:
+      - "h2:database"
 
   h2:
     build: ./h2/
