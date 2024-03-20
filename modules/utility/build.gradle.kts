@@ -23,7 +23,11 @@ kotlin {
             }
         }
         val commonTest by getting
-        val backendMain by getting
+        val backendMain by getting {
+            dependencies {
+                compileOnly("jakarta.servlet:jakarta.servlet-api:$jakartaServletApiVersion")
+            }
+        }
         val backendTest by getting
         val frontendMain by getting
         val frontendTest by getting

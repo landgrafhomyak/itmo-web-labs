@@ -5,20 +5,36 @@
                       http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
     <filter>
-        <filter-name>404</filter-name>
+        <filter-name>filter:404</filter-name>
         <filter-class>ru.landgrafhomyak.itmo.web.impl.apps.lab2.Filter404</filter-class>
     </filter>
-    <filter-mapping>
-        <filter-name>404</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
     <servlet>
-        <servlet-name>controller</servlet-name>
+        <servlet-name>servlet:Controller</servlet-name>
         <servlet-class>ru.landgrafhomyak.itmo.web.impl.apps.lab2.ControllerServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>servlet:AreaCheck</servlet-name>
+        <servlet-class>ru.landgrafhomyak.itmo.web.impl.apps.lab2.AreaCheckServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>jsp:404</servlet-name>
+        <jsp-file>/WEB-INF/pages/404.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>jsp:Form</servlet-name>
+        <jsp-file>/WEB-INF/pages/form.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>jsp:Result</servlet-name>
+        <jsp-file>/WEB-INF/pages/result.jsp</jsp-file>
+    </servlet>
+
+    <filter-mapping>
+        <filter-name>filter:404</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <servlet-mapping>
-        <servlet-name>controller</servlet-name>
+        <servlet-name>servlet:Controller</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 

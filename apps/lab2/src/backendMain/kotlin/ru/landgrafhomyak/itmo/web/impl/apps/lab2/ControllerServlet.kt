@@ -1,21 +1,16 @@
 package ru.landgrafhomyak.itmo.web.impl.apps.lab2
 
-import jakarta.inject.Inject
 import jakarta.servlet.http.HttpServlet
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
+import ru.landgrafhomyak.itmo.web.impl.utility.forwardToName
 
 class ControllerServlet : HttpServlet() {
-    @Inject
-    private lateinit var _areaCheckServlet: AreaCheckServlet
-
-    private val areaCheckServlet get() = this._areaCheckServlet
-
     override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
         if (req.parameterMap.isNotEmpty())
-            this.areaCheckServlet.doGetNotProtected(req, resp)
+            req.forwardToName("servlet:AreaCheck", resp)
         else
-            req.getRequestDispatcher("/WEB-INF/pages/form.jsp").forward(req, resp)
+            req.forwardToName("jsp:Form", resp)
 
     }
 }

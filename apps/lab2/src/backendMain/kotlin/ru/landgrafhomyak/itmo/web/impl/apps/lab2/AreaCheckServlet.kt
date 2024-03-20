@@ -8,9 +8,9 @@ import ru.landgrafhomyak.itmo.web.impl.modules.db.PointData
 import ru.landgrafhomyak.itmo.web.impl.modules.db.jakarta.HttpSessionStorage
 import ru.landgrafhomyak.itmo.web.impl.utility.StartingTimePoint
 import ru.landgrafhomyak.itmo.web.impl.utility.TimePoint
+import ru.landgrafhomyak.itmo.web.impl.utility.forwardToName
 import java.time.Instant
 
-@Singleton
 class AreaCheckServlet : HttpServlet() {
     override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
         fun Array<out String>.singleOrNull(): String? {
@@ -42,8 +42,6 @@ class AreaCheckServlet : HttpServlet() {
         val db = HttpSessionStorage(req.session, "history")
         db.saveRequest(null, reqObj)
         req.setAttribute("parsed", reqObj)
-        req.getRequestDispatcher("/WEB-INF/pages/result.jsp").forward(req, resp)
+        req.forwardToName("jsp:Result", resp)
     }
-
-    fun doGetNotProtected(req: HttpServletRequest, resp: HttpServletResponse) = this.doGet(req, resp)
 }
