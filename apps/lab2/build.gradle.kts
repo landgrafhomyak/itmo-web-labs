@@ -16,51 +16,23 @@ kotlin {
 
         withJava()
 
-        /*tasks.register<War>("war") {
+        tasks.war {
             val sourceCompilation = compilations["main"]
             dependsOn(tasks[sourceCompilation.compileAllTaskName])
-            classpath = sourceCompilation.output.classesDirs + sourceCompilation.runtimeDependencyFiles
-            group = "build"
-            webAppDirectory = projectDir / "src" / "backendMain" / "webapp"
-            webXml = projectDir / "src" / "backendMain" / "resources" / "WEB-INF" / "web.xml"
-
-
-            // archiveVersion.set("v${project.version}")
-            destinationDirectory = projectDir.resolve("out")
-            idea.project.settings.ideArtifacts {
-                this.register("war") {
-                    this.archive()
-                }
-            }
-        }*/
-
-        val sourceCompilation = compilations["main"]
-        val moduleDirectory = projectDir / "src" / "backendMain"
-        val assembledWebAppPath = buildDir / "assembledWebApp"
-        val webappDirAssembleTask = tasks.create<Copy>("assembleWebApp") {
-            dependsOn(tasks[sourceCompilation.compileAllTaskName])
-            from( moduleDirectory / "webapp", project(":modules:ui").projectDir / "src" / "frontendMain" / "static")
-            destinationDir = assembledWebAppPath
-        }
-
-        tasks.war {
-
-
-            dependsOn(tasks[sourceCompilation.compileAllTaskName], webappDirAssembleTask)
-            classpath = sourceCompilation.output.classesDirs + sourceCompilation.runtimeDependencyFiles
+            classpath = sourceCompilation.output.classesDirs
+                .plus(sourceCompilation.runtimeDependencyFiles)
+                .plus(files(sourceCompilation.output.resourcesDir))
             group = "build"
 
-            webAppDirectory = assembledWebAppPath
+            val moduleDirectory = projectDir / "src" / "backendMain"
+            webAppDirectory = moduleDirectory / "webapp"
 
-            webXml = moduleDirectory / "WEB-INF" / "web.xml"
-            webInf {
-                from(moduleDirectory / "WEB-INF" / "beans.xml")
-            }
+            from(project(":modules:ui").projectDir / "src" / "frontendMain" / "static")
 
-            // archiveVersion.set("v${project.version}")
             destinationDirectory = projectDir / "out"
         }
     }
+
     js("frontend") {
         binaries.executable()
         browser {
@@ -95,11 +67,6 @@ kotlin {
     }
 }
 
-//
-//tasks.named<Copy>("backendProcessResources") {
-//    val jsBrowserDistribution = tasks.named("frontendBrowserDistribution")
-//    from(jsBrowserDistribution)
-//}
 
 tasks.war {
     dependsOn(tasks["frontendBrowserWebpack"])
