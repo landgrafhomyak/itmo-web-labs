@@ -11,4 +11,4 @@ include(":modules:ui")
 
 include(":apps:lab2")
 include(":apps:lab3")
-include(":apps:lab4")
+include(":apps:lab4-jakarta")
