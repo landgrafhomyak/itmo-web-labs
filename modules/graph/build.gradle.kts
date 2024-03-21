@@ -19,7 +19,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api("ru.landgrafhomyak.itmo.web:graph-meta:2.1")
+                api("ru.landgrafhomyak.itmo.web:graph-meta:2.2")
                 implementation(project(":modules:utility"))
                 implementation(project(":modules:db"))
             }
