@@ -1,6 +1,5 @@
 package ru.landgrafhomyak.itmo.web.impl.apps.lab2
 
-import jakarta.inject.Singleton
 import jakarta.servlet.http.HttpServlet
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -9,7 +8,6 @@ import ru.landgrafhomyak.itmo.web.impl.modules.db.jakarta.HttpSessionStorage
 import ru.landgrafhomyak.itmo.web.impl.utility.StartingTimePoint
 import ru.landgrafhomyak.itmo.web.impl.utility.TimePoint
 import ru.landgrafhomyak.itmo.web.impl.utility.forwardToName
-import java.time.Instant
 
 class AreaCheckServlet : HttpServlet() {
     override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {

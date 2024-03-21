@@ -28,7 +28,7 @@
     <h1 class="title">ВАШ ВЫБОР И ТОЧКА</h1>
 </div>
 <div style="text-align: center">
-    <a href=".">&lArr; Вернуться к форме</a>
+    <a href="WEB-INF/pages">&lArr; Вернуться к форме</a>
 </div>
 <div>
     <table class="history">

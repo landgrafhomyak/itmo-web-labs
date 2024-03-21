@@ -6,6 +6,7 @@ plugins {
 operator fun File.div(child: String): File = this.resolve(child)
 
 val jakartaServletApiVersion: String by project
+val jakartaJspApiVersion: String by project
 
 kotlin {
     jvm("backend") {
@@ -55,10 +56,8 @@ kotlin {
         val backendMain by getting {
             dependencies {
                 compileOnly("jakarta.servlet:jakarta.servlet-api:$jakartaServletApiVersion")
-                implementation("jakarta.inject:jakarta.inject-api:2.0.1")
-                implementation("jakarta.ws.rs:jakarta.ws.rs-api:3.1.0")
+                compileOnly("jakarta.servlet.jsp:jakarta.servlet.jsp-api:$jakartaJspApiVersion")
                 implementation(project(":modules:db:jakarta"))
-                compileOnly("jakarta.servlet.jsp:jakarta.servlet.jsp-api:4.0.0-M1")
             }
         }
         val backendTest by getting

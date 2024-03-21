@@ -19,15 +19,15 @@
     </servlet>
     <servlet>
         <servlet-name>jsp:404</servlet-name>
-        <jsp-file>/WEB-INF/pages/404.jsp</jsp-file>
+        <jsp-file>/404.jsp</jsp-file>
     </servlet>
     <servlet>
         <servlet-name>jsp:Form</servlet-name>
-        <jsp-file>/WEB-INF/pages/form.jsp</jsp-file>
+        <jsp-file>/form.jsp</jsp-file>
     </servlet>
     <servlet>
         <servlet-name>jsp:Result</servlet-name>
-        <jsp-file>/WEB-INF/pages/result.jsp</jsp-file>
+        <jsp-file>/result.jsp</jsp-file>
     </servlet>
 
     <filter-mapping>
